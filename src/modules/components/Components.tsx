@@ -7,6 +7,8 @@ const Components = () => {
 	const openModal = () => {
 		aark.fire(<PaymentFailModal />, {
 			showCloseIcon: false,
+			preventEscClose: true,
+			preventOverlayClose: true,
 		});
 	};
 
