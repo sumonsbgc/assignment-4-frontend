@@ -1,10 +1,15 @@
-import React from "react";
+import { Suspense } from "react";
+import MedicineDetail from "@/modules/shop/MedicineDetail";
+import MedicineDetailSkeleton from "@/modules/shop/components/MedicineDetailSkeleton";
 
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 	const { id } = await params;
-	console.log("Shop ID:", id);
 
-	return <div>Shop Detail Page: {id}</div>;
+	return (
+		<Suspense fallback={<MedicineDetailSkeleton />}>
+			<MedicineDetail medicineId={id} />
+		</Suspense>
+	);
 };
 
 export default Page;

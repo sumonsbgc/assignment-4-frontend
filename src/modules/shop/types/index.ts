@@ -63,6 +63,11 @@ export interface GetMedicinesResponse {
 	pagination: Pagination;
 }
 
+export interface GetMedicineResponse {
+	success: boolean;
+	data: Medicine;
+}
+
 export interface CategoriesResponse {
 	success: boolean;
 	data: Category[];

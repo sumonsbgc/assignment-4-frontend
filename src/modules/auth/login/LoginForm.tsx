@@ -25,6 +25,7 @@ export function LoginForm({
 	className,
 	...props
 }: React.ComponentProps<"div">) {
+	
 	const onGoogleLogin = () => {
 		const data = auth.signIn.social({
 			provider: "google",
