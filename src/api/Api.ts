@@ -15,7 +15,7 @@ class Api {
 	public static getInstance(
 		baseUrl: string,
 		prefix?: string,
-		version?: string
+		version?: string,
 	): Api {
 		const key = `${baseUrl}-${prefix ?? ""}-${version ?? ""}`;
 		if (!Api.instances.has(key)) {
@@ -26,7 +26,7 @@ class Api {
 
 	public get<T = unknown>(
 		endpoint: string,
-		options?: RequestOptions
+		options?: RequestOptions,
 	): Promise<ResponseData<T>> {
 		return this.client.request<T>("GET", endpoint, undefined, options);
 	}
@@ -34,7 +34,7 @@ class Api {
 	public post<T = unknown>(
 		endpoint: string,
 		body?: unknown,
-		options?: RequestOptions
+		options?: RequestOptions,
 	): Promise<ResponseData<T>> {
 		return this.client.request<T>("POST", endpoint, body, options);
 	}
@@ -42,7 +42,7 @@ class Api {
 	public put<T = unknown>(
 		endpoint: string,
 		body?: unknown,
-		options?: RequestOptions
+		options?: RequestOptions,
 	): Promise<ResponseData<T>> {
 		return this.client.request<T>("PUT", endpoint, body, options);
 	}
@@ -50,7 +50,7 @@ class Api {
 	public delete<T = unknown>(
 		endpoint: string,
 		body?: unknown,
-		options?: RequestOptions
+		options?: RequestOptions,
 	): Promise<ResponseData<T>> {
 		return this.client.request<T>("DELETE", endpoint, body, options);
 	}
@@ -58,7 +58,7 @@ class Api {
 	public patch<T = unknown>(
 		endpoint: string,
 		body?: unknown,
-		options?: RequestOptions
+		options?: RequestOptions,
 	): Promise<ResponseData<T>> {
 		return this.client.request<T>("PATCH", endpoint, body, options);
 	}

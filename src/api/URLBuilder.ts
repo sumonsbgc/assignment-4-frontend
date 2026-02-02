@@ -4,7 +4,7 @@ export class UrlBuilder implements IURLBuilder {
 	constructor(
 		private baseURL?: string,
 		private prefix?: string,
-		private version?: string
+		private version?: string,
 	) {}
 
 	setBaseURL(url: string): void {
@@ -13,7 +13,7 @@ export class UrlBuilder implements IURLBuilder {
 
 	buildURL(
 		endpoint: string,
-		params?: Record<string, string | number | boolean>
+		params?: Record<string, string | number | boolean>,
 	): string {
 		const parts: string[] = [];
 
@@ -31,10 +31,10 @@ export class UrlBuilder implements IURLBuilder {
 
 		const url = new URL(
 			endpointWithPrefix,
-			this.baseURL?.endsWith("/") ? this.baseURL : this.baseURL + "/"
+			this.baseURL?.endsWith("/") ? this.baseURL : this.baseURL + "/",
 		);
 
-		// console.log({ url, endpointWithPrefix });
+		console.log({ url, endpointWithPrefix });
 
 		if (!params || Object.keys(params).length === 0) {
 			return url.toString();

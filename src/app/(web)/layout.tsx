@@ -1,7 +1,6 @@
 import React from "react";
 import { Header } from "../_partials/Header";
-
-const Footer = () => <></>;
+import Footer from "../_partials/Footer";
 
 const WebLayout = ({ children }: { children: React.ReactNode }) => {
 	return (
