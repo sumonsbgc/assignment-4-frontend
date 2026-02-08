@@ -8,6 +8,7 @@ import {
 	SidebarRail,
 } from "../ui/sidebar";
 import NavSidebar from "./nav-sidebar";
+import Link from "next/link";
 
 const AppSidebar = () => {
 	return (
@@ -20,7 +21,9 @@ const AppSidebar = () => {
 							asChild
 						>
 							{/* <IconInnerShadowTop className="size-5!" /> */}
-							<h2 className="text-lg! font-semibold">Medi Shop</h2>
+							<h2 className="text-lg! font-semibold">
+								<Link href="/">Medi Shop</Link>
+							</h2>
 						</SidebarMenuButton>
 					</SidebarMenuItem>
 				</SidebarMenu>

@@ -3,17 +3,24 @@ import { cookies } from "next/headers";
 
 import AppSidebar from "@/components/sidebar/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { AdminHeader } from "./_partial/partial";
+import { DashboardHeader } from "../_partials/DashboardHeader";
+import { getSession } from "@/lib/getSession";
+import { Role } from "@/lib/roles";
 
 const SellerLayout = async ({ children }: { children: React.ReactNode }) => {
 	const cookieStore = await cookies();
 	const isDefaultOpen = cookieStore.get("sidebar_state")?.value === "true";
+	const { isAuthenticated, user } = await getSession();
+
+	if (!isAuthenticated || user?.role !== Role.SELLER) {
+		throw new Error("Unauthorized");
+	}
 
 	return (
 		<SidebarProvider defaultOpen={isDefaultOpen}>
 			<AppSidebar />
 			<SidebarInset>
-				<AdminHeader />
+				<DashboardHeader user={user} />
 				{children}
 			</SidebarInset>
 		</SidebarProvider>

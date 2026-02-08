@@ -1,19 +1,7 @@
-"use client";
-
-import Link from "next/link";
-
 import { Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
-
 import { Accordion } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-
-import {
-	NavigationMenu,
-	NavigationMenuItem,
-	NavigationMenuLink,
-	NavigationMenuList,
-} from "@/components/ui/navigation-menu";
 
 import {
 	Sheet,
@@ -23,178 +11,88 @@ import {
 	SheetTrigger,
 } from "@/components/ui/sheet";
 
-import logoImg from "@/assets/images/logo-2.png";
+import { NavbarProps } from "@/routes/routes.type";
+import { webMenus } from "@/routes/routes";
+import { Brand, Logo } from "@/components/header/Logo";
+import ProfileDropdown from "@/components/header/ProfileDropdown";
+import AuthMenu from "@/components/header/AuthMenu";
+import { DesktopMenus, MobileMenus } from "@/components/header/Menus";
+import { getSession } from "@/lib/getSession";
+import { IUser } from "@/models/Models";
+import { LogOutButton } from "@/components/header/Logout";
 
-// import { ModeToggle } from "./ModeToggle";
+const Header = async ({ className }: NavbarProps) => {
+	const { menus, auth } = webMenus;
+	const { user, isAuthenticated } = await getSession();
+	if (!user) return null;
 
-interface MenuItem {
-	title: string;
-	url: string;
-	description?: string;
-	icon?: React.ReactNode;
-	items?: MenuItem[];
-}
-
-interface Navbar1Props {
-	className?: string;
-	logo?: {
-		url: string;
-		src: string;
-		alt: string;
-		title: string;
-		className?: string;
-	};
-	menu?: MenuItem[];
-	auth?: {
-		login: {
-			title: string;
-			url: string;
-		};
-		signup: {
-			title: string;
-			url: string;
-		};
-	};
-}
-
-const Header = ({
-	logo = {
-		url: "/",
-		src: logoImg.src,
-		alt: "logo",
-		title: "Medi Shop",
-	},
-
-	menu = [
-		{ title: "Home", url: "/" },
-		{
-			title: "Shop",
-			url: "/shop",
-		},
-		{
-			title: "About",
-			url: "/about",
-		},
-	],
-	auth = {
-		login: { title: "Login", url: "/login" },
-		signup: { title: "Register", url: "/register" },
-	},
-	className,
-}: Navbar1Props) => {
 	return (
 		<header
 			className={cn("py-4 border-b sticky top-0 bg-background z-50", className)}
 		>
 			<div className="container mx-auto px-4">
-				{/* Desktop Menu */}
 				<nav className="hidden items-center justify-between lg:flex">
 					<div className="flex items-center gap-6">
-						{/* Logo */}
-						<Link href={logo.url} className="flex items-center gap-2">
-							<img
-								src={logo.src}
-								className="max-h-8 dark:invert"
-								alt={logo.alt}
-							/>
-							<span className="text-lg font-semibold tracking-tighter">
-								{logo.title}
-							</span>
-						</Link>
+						<Brand />
 						<div className="flex items-center">
-							<NavigationMenu>
-								<NavigationMenuList>
-									{menu.map((item) => renderMenuItem(item))}
-								</NavigationMenuList>
-							</NavigationMenu>
+							<DesktopMenus menus={menus} />
 						</div>
 					</div>
 
-					<div className="flex gap-2">
-						{/* <ModeToggle /> */}
-						<Button asChild variant="outline" size="sm">
-							<Link href={auth.login.url}>{auth.login.title}</Link>
-						</Button>
-						<Button asChild size="sm">
-							<Link href={auth.signup.url}>{auth.signup.title}</Link>
-						</Button>
+					<div className="flex gap-2 items-center">
+						{isAuthenticated ? (
+							<ProfileDropdown user={user as IUser} />
+						) : (
+							<AuthMenu auth={auth} />
+						)}
 					</div>
 				</nav>
 
 				{/* Mobile Menu */}
 				<div className="block lg:hidden">
 					<div className="flex items-center justify-between">
-						{/* Logo */}
-						<a href={logo.url} className="flex items-center gap-2">
-							<img
-								src={logo.src}
-								className="max-h-8 dark:invert"
-								alt={logo.alt}
-							/>
-						</a>
-						<Sheet>
-							<SheetTrigger asChild>
-								<Button variant="outline" size="icon">
-									<Menu className="size-4" />
-								</Button>
-							</SheetTrigger>
-							<SheetContent className="overflow-y-auto">
-								<SheetHeader>
-									<SheetTitle>
-										<a href={logo.url} className="flex items-center gap-2">
-											<img
-												src={logo.src}
-												className="max-h-8 dark:invert"
-												alt={logo.alt}
-											/>
-										</a>
-									</SheetTitle>
-								</SheetHeader>
-								<div className="flex flex-col gap-6 p-4">
-									<Accordion
-										type="single"
-										collapsible
-										className="flex w-full flex-col gap-4"
-									>
-										{menu.map((item) => renderMobileMenuItem(item))}
-									</Accordion>
+						<Logo />
 
-									<div className="flex flex-col gap-3">
-										<Button asChild variant="outline">
-											<Link href={auth.login.url}>{auth.login.title}</Link>
-										</Button>
-										<Button asChild>
-											<Link href={auth.signup.url}>{auth.signup.title}</Link>
-										</Button>
+						<div className="flex gap-4 items-center">
+							{isAuthenticated && <ProfileDropdown user={user as IUser} />}
+
+							<Sheet>
+								<SheetTrigger asChild>
+									<Button variant="outline" size="icon">
+										<Menu className="size-4" />
+									</Button>
+								</SheetTrigger>
+
+								<SheetContent className="overflow-y-auto">
+									<SheetHeader>
+										<SheetTitle>
+											<Logo />
+										</SheetTitle>
+									</SheetHeader>
+									<div className="flex flex-col gap-6 p-4">
+										<Accordion
+											type="single"
+											collapsible
+											className="flex w-full flex-col gap-4"
+										>
+											<MobileMenus menus={menus} />
+										</Accordion>
+
+										{isAuthenticated ? (
+											<div className="flex flex-col gap-3 border-t pt-4">
+												<LogOutButton />
+											</div>
+										) : (
+											<AuthMenu auth={auth} />
+										)}
 									</div>
-								</div>
-							</SheetContent>
-						</Sheet>
+								</SheetContent>
+							</Sheet>
+						</div>
 					</div>
 				</div>
 			</div>
 		</header>
-	);
-};
-
-const renderMenuItem = (item: MenuItem) => {
-	return (
-		<NavigationMenuItem key={item.title}>
-			<NavigationMenuLink
-				asChild
-				className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground"
-			>
-				<Link href={item.url}>{item.title}</Link>
-			</NavigationMenuLink>
-		</NavigationMenuItem>
-	);
-};
-
-const renderMobileMenuItem = (item: MenuItem) => {
-	return (
-		<Link key={item.title} href={item.url} className="text-md font-semibold">
-			{item.title}
-		</Link>
 	);
 };
 
