@@ -11,11 +11,13 @@ import {
 	SheetTrigger,
 } from "@/components/ui/sheet";
 
+import ProfileDropdown from "@/components/header/ProfileDropdown";
+import AuthMenu from "@/components/header/AuthMenu";
+import CartDrawer from "@/components/cart/CartDrawer";
+
 import { NavbarProps } from "@/routes/routes.type";
 import { webMenus } from "@/routes/routes";
 import { Brand, Logo } from "@/components/header/Logo";
-import ProfileDropdown from "@/components/header/ProfileDropdown";
-import AuthMenu from "@/components/header/AuthMenu";
 import { DesktopMenus, MobileMenus } from "@/components/header/Menus";
 import { getSession } from "@/lib/getSession";
 import { IUser } from "@/models/Models";
@@ -24,7 +26,6 @@ import { LogOutButton } from "@/components/header/Logout";
 const Header = async ({ className }: NavbarProps) => {
 	const { menus, auth } = webMenus;
 	const { user, isAuthenticated } = await getSession();
-	if (!user) return null;
 
 	return (
 		<header
@@ -41,7 +42,10 @@ const Header = async ({ className }: NavbarProps) => {
 
 					<div className="flex gap-2 items-center">
 						{isAuthenticated ? (
-							<ProfileDropdown user={user as IUser} />
+							<>
+								<CartDrawer />
+								<ProfileDropdown user={user as IUser} />
+							</>
 						) : (
 							<AuthMenu auth={auth} />
 						)}
@@ -53,8 +57,13 @@ const Header = async ({ className }: NavbarProps) => {
 					<div className="flex items-center justify-between">
 						<Logo />
 
-						<div className="flex gap-4 items-center">
-							{isAuthenticated && <ProfileDropdown user={user as IUser} />}
+						<div className="flex gap-2 items-center">
+							{isAuthenticated && (
+								<>
+									<CartDrawer />
+									<ProfileDropdown user={user as IUser} />
+								</>
+							)}
 
 							<Sheet>
 								<SheetTrigger asChild>

@@ -15,7 +15,7 @@ interface MedicineCardProps {
 	medicine: Medicine;
 }
 
-export default function MedicineCard({ medicine }: MedicineCardProps) {
+export default async function MedicineCard({ medicine }: MedicineCardProps) {
 	return (
 		<Card className="flex flex-col hover:shadow-lg transition-shadow">
 			<Link href={`/shop/${medicine.id}`} className="cursor-pointer">

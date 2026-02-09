@@ -21,11 +21,11 @@ export const publicRoutes = [
 	"/shop/:id",
 	"/about",
 	"/contact",
+	"/cart",
+	"/checkout",
 ];
 
 export const customerRoutes = [
-	"/cart",
-	"/checkout",
 	"/orders",
 	"/orders/:id",
 	"/profile",
@@ -110,11 +110,6 @@ const sellerMenus: MenuItem[] = [
 
 const customerMenus: MenuItem[] = [
 	{
-		title: "Cart",
-		url: "/cart",
-		icon: ShoppingCart,
-	},
-	{
 		title: "Orders",
 		url: "/orders",
 		icon: FolderTree,
@@ -179,7 +174,6 @@ export const getRoleMenuItems = (role: string) => {
 		default:
 			return [
 				{ title: "Orders", url: "/orders", icon: FolderTree },
-				{ title: "Cart", url: "/cart", icon: ShoppingCart },
 				{ title: "Profile", url: "/profile", icon: User },
 			];
 	}

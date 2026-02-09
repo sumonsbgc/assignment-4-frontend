@@ -6,7 +6,7 @@ export const modifiedFilters = (
 	console.log(searchParams, "Search Params in modifiedFilters");
 	const filters: MedicineFilters = {
 		page: searchParams?.page ? parseInt(searchParams.page) : 1,
-		limit: 12,
+		limit: 6,
 		...(searchParams?.search && { search: searchParams.search }),
 		...(searchParams?.categoryId && { categoryId: searchParams.categoryId }),
 		...(searchParams?.minPrice && {

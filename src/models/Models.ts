@@ -5,4 +5,3 @@ export type IUser = User & {
 	role: IRoles;
 };
 
-
