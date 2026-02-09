@@ -9,19 +9,22 @@ import {
 	PaginationNext,
 	PaginationPrevious,
 } from "@/components/ui/pagination";
-import { useFilter } from "../hooks/useFilter";
-import type { Pagination as PaginationType } from "../types";
 
 interface PaginationProps {
-	pagination: PaginationType;
+	currentPage: number;
+	totalPages: number;
+	onPageChange: (page: number) => void;
+	className?: string;
 }
 
-export default function Pagination({ pagination }: PaginationProps) {
-	const { setPage } = useFilter();
-	const { page, totalPages } = pagination;
-
+export function Pagination({
+	currentPage,
+	totalPages,
+	onPageChange,
+	className,
+}: PaginationProps) {
 	const generatePageNumbers = () => {
-		const pages: (number | string)[] = [];
+		const pages: (number | "ellipsis")[] = [];
 		const maxVisible = 5;
 
 		if (totalPages <= maxVisible) {
@@ -29,18 +32,18 @@ export default function Pagination({ pagination }: PaginationProps) {
 				pages.push(i);
 			}
 		} else {
-			if (page <= 3) {
+			if (currentPage <= 3) {
 				for (let i = 1; i <= 4; i++) pages.push(i);
 				pages.push("ellipsis");
 				pages.push(totalPages);
-			} else if (page >= totalPages - 2) {
+			} else if (currentPage >= totalPages - 2) {
 				pages.push(1);
 				pages.push("ellipsis");
 				for (let i = totalPages - 3; i <= totalPages; i++) pages.push(i);
 			} else {
 				pages.push(1);
 				pages.push("ellipsis");
-				for (let i = page - 1; i <= page + 1; i++) pages.push(i);
+				for (let i = currentPage - 1; i <= currentPage + 1; i++) pages.push(i);
 				pages.push("ellipsis");
 				pages.push(totalPages);
 			}
@@ -49,20 +52,26 @@ export default function Pagination({ pagination }: PaginationProps) {
 		return pages;
 	};
 
+	if (totalPages <= 1) return null;
+
+	const pageNumbers = generatePageNumbers();
+
 	return (
-		<div className="mt-8">
+		<div className={className || "mt-8"}>
 			<PaginationRoot>
 				<PaginationContent>
 					<PaginationItem>
 						<PaginationPrevious
-							onClick={() => page > 1 && setPage(page - 1)}
+							onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
 							className={
-								page === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"
+								currentPage === 1
+									? "pointer-events-none opacity-50"
+									: "cursor-pointer"
 							}
 						/>
 					</PaginationItem>
 
-					{generatePageNumbers().map((pageNum, index) =>
+					{pageNumbers.map((pageNum, index) =>
 						pageNum === "ellipsis" ? (
 							<PaginationItem key={`ellipsis-${index}`}>
 								<PaginationEllipsis />
@@ -70,8 +79,8 @@ export default function Pagination({ pagination }: PaginationProps) {
 						) : (
 							<PaginationItem key={pageNum}>
 								<PaginationLink
-									onClick={() => setPage(pageNum as number)}
-									isActive={pageNum === page}
+									onClick={() => onPageChange(pageNum)}
+									isActive={pageNum === currentPage}
 									className="cursor-pointer"
 								>
 									{pageNum}
@@ -82,9 +91,11 @@ export default function Pagination({ pagination }: PaginationProps) {
 
 					<PaginationItem>
 						<PaginationNext
-							onClick={() => page < totalPages && setPage(page + 1)}
+							onClick={() =>
+								currentPage < totalPages && onPageChange(currentPage + 1)
+							}
 							className={
-								page === totalPages
+								currentPage === totalPages
 									? "pointer-events-none opacity-50"
 									: "cursor-pointer"
 							}
@@ -95,3 +106,5 @@ export default function Pagination({ pagination }: PaginationProps) {
 		</div>
 	);
 }
+
+export default Pagination;

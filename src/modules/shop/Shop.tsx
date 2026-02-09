@@ -1,6 +1,6 @@
 import FilterSection from "./sections/FilterSection";
 import MedicineCard from "./components/MedicineCard";
-import Pagination from "./components/Pagination";
+import ShopPagination from "./components/ShopPagination";
 import { getCategories, getMedicines } from "./services";
 import { modifiedFilters } from "./services/modifiedFilters";
 import type { MedicineFilters } from "./types";
@@ -34,7 +34,7 @@ export default async function Shop({
 							))}
 						</div>
 
-						<Pagination pagination={pagination} />
+						<ShopPagination pagination={pagination} />
 					</div>
 				</div>
 			</div>
