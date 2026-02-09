@@ -1,3 +1,5 @@
+import { IUser } from "./Models";
+
 export enum OrderStatus {
 	PENDING = "PENDING",
 	CONFIRMED = "CONFIRMED",
@@ -56,6 +58,7 @@ export interface IOrder {
 	createdAt: string;
 	updatedAt: string;
 	orderItems: IOrderItem[];
+	user: IUser;
 }
 
 export interface IOrdersResponse {

@@ -1,6 +1,4 @@
-"use client";
-
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -11,76 +9,47 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
-import { Search, MoreVertical, Eye, Package } from "lucide-react";
+import { Search, Eye } from "lucide-react";
 import Link from "next/link";
+import { getSellerOrders } from "@/modules/order/services/seller";
+import { OrderStatus } from "@/models/Order";
+import {
+	getStatusColor,
+	getPaymentStatusColor,
+} from "@/modules/order/utils/statusColors";
+import { Metadata } from "next";
+import { SellerOrdersFilter } from "./_components/SellerOrdersFilter";
+import { SellerOrdersPagination } from "./_components/SellerOrdersPagination";
 
-export default function SellerOrdersPage() {
-	// Mock orders data - replace with actual data from API
-	const orders = [
-		{
-			id: "ORD-001",
-			customer: "John Doe",
-			date: "2026-02-07",
-			status: "pending",
-			total: 24.97,
-			items: 2,
-		},
-		{
-			id: "ORD-002",
-			customer: "Jane Smith",
-			date: "2026-02-06",
-			status: "processing",
-			total: 45.99,
-			items: 3,
-		},
-		{
-			id: "ORD-003",
-			customer: "Bob Johnson",
-			date: "2026-02-05",
-			status: "shipped",
-			total: 18.5,
-			items: 1,
-		},
-		{
-			id: "ORD-004",
-			customer: "Alice Williams",
-			date: "2026-02-04",
-			status: "delivered",
-			total: 67.8,
-			items: 4,
-		},
-	];
+export const metadata: Metadata = {
+	title: "My Orders - Seller | MediStore",
+	description: "Manage and fulfill customer orders",
+};
 
-	const getStatusBadge = (status: string) => {
-		switch (status) {
-			case "pending":
-				return <Badge className="bg-yellow-100 text-yellow-800">Pending</Badge>;
-			case "processing":
-				return <Badge className="bg-blue-100 text-blue-800">Processing</Badge>;
-			case "shipped":
-				return <Badge className="bg-purple-100 text-purple-800">Shipped</Badge>;
-			case "delivered":
-				return <Badge className="bg-green-100 text-green-800">Delivered</Badge>;
-			case "cancelled":
-				return <Badge className="bg-red-100 text-red-800">Cancelled</Badge>;
-			default:
-				return <Badge>{status}</Badge>;
-		}
-	};
+type SellerOrdersPageProps = {
+	searchParams: Promise<{
+		page?: string;
+		status?: string;
+	}>;
+};
+
+export default async function SellerOrdersPage({
+	searchParams,
+}: SellerOrdersPageProps) {
+	const params = await searchParams;
+	const currentPage = Number(params.page) || 1;
+	const statusFilter = params.status as OrderStatus | "ALL" | undefined;
+
+	const {
+		data: orders,
+		success,
+		pagination,
+	} = await getSellerOrders(
+		currentPage,
+		20,
+		statusFilter && statusFilter !== "ALL" ? statusFilter : undefined,
+	);
 
 	return (
 		<div className="flex flex-1 flex-col gap-4 p-4">
@@ -98,85 +67,77 @@ export default function SellerOrdersPage() {
 							<Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
 							<Input placeholder="Search orders..." className="pl-10" />
 						</div>
-						<Select defaultValue="all">
-							<SelectTrigger className="w-full md:w-[180px]">
-								<SelectValue placeholder="Filter by status" />
-							</SelectTrigger>
-							<SelectContent>
-								<SelectItem value="all">All Orders</SelectItem>
-								<SelectItem value="pending">Pending</SelectItem>
-								<SelectItem value="processing">Processing</SelectItem>
-								<SelectItem value="shipped">Shipped</SelectItem>
-								<SelectItem value="delivered">Delivered</SelectItem>
-								<SelectItem value="cancelled">Cancelled</SelectItem>
-							</SelectContent>
-						</Select>
+						<SellerOrdersFilter />
 					</div>
 				</CardHeader>
 				<CardContent>
-					{orders.length === 0 ? (
-						<div className="py-12 text-center">
-							<Package className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-							<h2 className="text-2xl font-semibold mb-2">No orders yet</h2>
-							<p className="text-gray-600">
-								Orders will appear here when customers purchase your products
-							</p>
+					{!success || orders.length === 0 ? (
+						<div className="text-center py-12">
+							<p className="text-muted-foreground">No orders found</p>
 						</div>
 					) : (
-						<Table>
-							<TableHeader>
-								<TableRow>
-									<TableHead>Order ID</TableHead>
-									<TableHead>Customer</TableHead>
-									<TableHead>Date</TableHead>
-									<TableHead>Items</TableHead>
-									<TableHead>Total</TableHead>
-									<TableHead>Status</TableHead>
-									<TableHead className="text-right">Actions</TableHead>
-								</TableRow>
-							</TableHeader>
-							<TableBody>
-								{orders.map((order) => (
-									<TableRow key={order.id}>
-										<TableCell className="font-medium">{order.id}</TableCell>
-										<TableCell>{order.customer}</TableCell>
-										<TableCell>
-											{new Date(order.date).toLocaleDateString()}
-										</TableCell>
-										<TableCell>{order.items}</TableCell>
-										<TableCell className="font-semibold">
-											${order.total.toFixed(2)}
-										</TableCell>
-										<TableCell>{getStatusBadge(order.status)}</TableCell>
-										<TableCell className="text-right">
-											<DropdownMenu>
-												<DropdownMenuTrigger asChild>
-													<Button variant="ghost" size="icon">
-														<MoreVertical className="w-4 h-4" />
-													</Button>
-												</DropdownMenuTrigger>
-												<DropdownMenuContent align="end">
-													<DropdownMenuItem asChild>
-														<Link href={`/seller/orders/${order.id}`}>
-															<Eye className="w-4 h-4 mr-2" />
-															View Details
-														</Link>
-													</DropdownMenuItem>
-													{order.status === "pending" && (
-														<DropdownMenuItem>
-															Mark as Processing
-														</DropdownMenuItem>
-													)}
-													{order.status === "processing" && (
-														<DropdownMenuItem>Mark as Shipped</DropdownMenuItem>
-													)}
-												</DropdownMenuContent>
-											</DropdownMenu>
-										</TableCell>
+						<>
+							<Table>
+								<TableHeader>
+									<TableRow>
+										<TableHead>Order Number</TableHead>
+										<TableHead>Customer</TableHead>
+										<TableHead>Date</TableHead>
+										<TableHead>Items</TableHead>
+										<TableHead>Total</TableHead>
+										<TableHead>Status</TableHead>
+										<TableHead>Payment</TableHead>
+										<TableHead className="text-right">Actions</TableHead>
 									</TableRow>
-								))}
-							</TableBody>
-						</Table>
+								</TableHeader>
+								<TableBody>
+									{orders.map((order) => (
+										<TableRow key={order.id}>
+											<TableCell className="font-medium">
+												{order.orderNumber}
+											</TableCell>
+											<TableCell>
+												{order.user?.name || "N/A"}
+												<div className="text-xs text-muted-foreground">
+													{order.user?.email}
+												</div>
+											</TableCell>
+											<TableCell>
+												{new Date(order.createdAt).toLocaleDateString()}
+											</TableCell>
+											<TableCell>{order.orderItems?.length || 0}</TableCell>
+											<TableCell className="font-semibold">
+												৳{order.totalAmount.toFixed(2)}
+											</TableCell>
+											<TableCell>
+												<Badge className={getStatusColor(order.status)}>
+													{order.status}
+												</Badge>
+											</TableCell>
+											<TableCell>
+												<Badge
+													className={getPaymentStatusColor(order.paymentStatus)}
+												>
+													{order.paymentStatus}
+												</Badge>
+											</TableCell>
+											<TableCell className="text-right">
+												<Button variant="ghost" size="sm" asChild>
+													<Link href={`/seller/orders/${order.id}`}>
+														<Eye className="w-4 h-4 mr-2" />
+														View
+													</Link>
+												</Button>
+											</TableCell>
+										</TableRow>
+									))}
+								</TableBody>
+							</Table>
+
+							<div className="mt-6">
+								<SellerOrdersPagination pagination={pagination} />
+							</div>
+						</>
 					)}
 				</CardContent>
 			</Card>

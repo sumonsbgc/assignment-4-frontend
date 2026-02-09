@@ -3,6 +3,7 @@
 import { cookies } from "next/headers";
 import { api } from "@/api/Api";
 import { IOrder } from "@/models/Order";
+import { CacheTags } from "@/modules/shared/const";
 
 export type GetOrderByIdResponse = {
 	status: boolean;
@@ -15,10 +16,12 @@ export async function getOrderById(
 ): Promise<GetOrderByIdResponse> {
 	try {
 		const cookieStore = await cookies();
-
 		const res = await api.get<{ data: IOrder }>(`/orders/${orderId}`, {
 			headers: {
 				Cookie: cookieStore.toString(),
+			},
+			next: {
+				tags: [CacheTags.Order],
 			},
 		});
 
