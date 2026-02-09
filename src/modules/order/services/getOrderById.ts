@@ -7,7 +7,7 @@ import { IOrder } from "@/models/Order";
 export type GetOrderByIdResponse = {
 	status: boolean;
 	message: string;
-	data: IOrder | null;
+	order: IOrder | null;
 };
 
 export async function getOrderById(
@@ -16,39 +16,41 @@ export async function getOrderById(
 	try {
 		const cookieStore = await cookies();
 
-		const res = await api.get<IOrder>(`/orders/${orderId}`, {
+		const res = await api.get<{ data: IOrder }>(`/orders/${orderId}`, {
 			headers: {
 				Cookie: cookieStore.toString(),
 			},
 		});
 
+		console.log("API Response for getOrderById:", res);
+
 		if (!res.success || res.error) {
 			return {
 				status: false,
 				message: res.error || "Failed to fetch order",
-				data: null,
+				order: null,
 			};
 		}
 
-		if (!res.data) {
+		if (!res.data?.data) {
 			return {
 				status: false,
 				message: "Order not found",
-				data: null,
+				order: null,
 			};
 		}
 
 		return {
 			status: true,
 			message: "Order fetched successfully",
-			data: res.data,
+			order: res.data.data,
 		};
 	} catch (error) {
 		console.error("Error fetching order:", error);
 		return {
 			status: false,
 			message: error instanceof Error ? error.message : "Failed to fetch order",
-			data: null,
+			order: null,
 		};
 	}
 }

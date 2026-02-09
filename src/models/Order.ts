@@ -20,8 +20,9 @@ export interface IOrderItem {
 	orderId: string;
 	medicineId: string;
 	quantity: number;
-	priceAtPurchase: number;
-	discountAtPurchase: number;
+	price: number;
+	discount: number;
+	subtotal: number;
 	medicine: {
 		id: string;
 		name: string;

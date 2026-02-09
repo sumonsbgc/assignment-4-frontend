@@ -25,13 +25,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function OrderDetailPage({ params }: Props) {
 	const { id } = await params;
-	const orderResponse = await getOrderById(id);
+	const { order, status } = await getOrderById(id);
+	console.log("Order Detail Data:", { order, status });
 
-	if (!orderResponse.status || !orderResponse.data) {
+	if (!status || !order) {
 		notFound();
 	}
-
-	const order = orderResponse.data;
 
 	return (
 		<div className="container mx-auto px-4 py-8">

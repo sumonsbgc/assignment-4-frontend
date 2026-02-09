@@ -41,11 +41,11 @@ export function OrderItemsList({ items }: OrderItemsListProps) {
 									</p>
 									<div className="flex items-center gap-2 text-sm text-muted-foreground">
 										<span>
-											৳{item.priceAtPurchase.toFixed(2)} × {item.quantity}
+											৳{item.price.toFixed(2)} × {item.quantity}
 										</span>
-										{item.discountAtPurchase > 0 && (
+										{item.discount > 0 && (
 											<Badge variant="secondary" className="text-xs">
-												{item.discountAtPurchase}% off
+												{item.discount}% off
 											</Badge>
 										)}
 									</div>
@@ -53,7 +53,7 @@ export function OrderItemsList({ items }: OrderItemsListProps) {
 
 								<div className="text-right">
 									<p className="font-semibold text-lg text-green-600">
-										৳{(item.priceAtPurchase * item.quantity).toFixed(2)}
+										৳{item.subtotal.toFixed(2)}
 									</p>
 								</div>
 							</div>
