@@ -1,11 +1,21 @@
 import React from "react";
 import { cookies } from "next/headers";
+import type { Metadata } from "next";
 
 import AppSidebar from "@/components/sidebar/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { DashboardHeader } from "../_partials/DashboardHeader";
 import { getSession } from "@/lib/getSession";
 import { Role } from "@/lib/roles";
+import { IUser } from "@/models/Models";
+
+export const metadata: Metadata = {
+	title: {
+		default: "Customer Dashboard - MediStore",
+		template: "%s - MediStore",
+	},
+	description: "Manage your MediStore account, orders, and profile.",
+};
 
 const CustomerLayout = async ({ children }: { children: React.ReactNode }) => {
 	const cookieStore = await cookies();
@@ -20,7 +30,7 @@ const CustomerLayout = async ({ children }: { children: React.ReactNode }) => {
 		<SidebarProvider defaultOpen={isDefaultOpen}>
 			<AppSidebar />
 			<SidebarInset>
-				<DashboardHeader user={user} />
+				<DashboardHeader user={user as IUser} />
 				{children}
 			</SidebarInset>
 		</SidebarProvider>

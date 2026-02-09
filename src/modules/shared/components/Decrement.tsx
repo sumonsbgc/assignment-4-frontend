@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { Minus } from "lucide-react";
 import { ICart } from "@/models/Cart";
-import { updateCartItemAction } from "@/modules/shared/actions/cart.actions";
+import { updateCartItemAction } from "../actions/cart.actions";
 
 const Decrement = ({ item }: { item: ICart }) => {
 	return (

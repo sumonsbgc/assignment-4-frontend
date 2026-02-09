@@ -1,3 +1,9 @@
+export const metadata = {
+	title: "Dashboard - MediStore",
+	description:
+		"Manage your MediStore account, view orders, and track deliveries.",
+};
+
 const Dashboard = () => {
 	return (
 		<div className="flex flex-1 flex-col gap-4 p-4">

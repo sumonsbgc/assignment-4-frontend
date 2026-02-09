@@ -1,14 +1,13 @@
-import { SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
-import { ShoppingCart, Trash2 } from "lucide-react";
-import { Button } from "../ui/button";
-import Link from "next/link";
-import { Badge } from "../ui/badge";
-import { Card } from "../ui/card";
 import Image from "next/image";
+import Link from "next/link";
+
+import { Card } from "../ui/card";
+import { Badge } from "../ui/badge";
 import { ICart } from "@/models/Cart";
-import Increment from "./Increment";
-import Decrement from "./Decrement";
-import Remove from "./Remove";
+import { Button } from "../ui/button";
+import { ShoppingCart } from "lucide-react";
+import { SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
+import { Increment, Decrement, Remove } from "@/modules/shared/components";
 
 const CartContent = ({
 	carts,
@@ -54,7 +53,6 @@ const CartContent = ({
 				</div>
 			) : (
 				<>
-					{/* Scrollable Cart Items */}
 					<div className="flex-1 overflow-y-auto mt-6 px-1 space-y-4">
 						{carts.map((item: ICart) => {
 							const price =
@@ -68,7 +66,6 @@ const CartContent = ({
 									className="p-4 hover:shadow-md transition-shadow"
 								>
 									<div className="flex gap-3 items-start">
-										{/* Product Image */}
 										<div className="relative h-20 w-20 shrink-0 rounded-md overflow-hidden bg-muted">
 											{item.medicine.imageUrl ? (
 												<Image
@@ -84,7 +81,6 @@ const CartContent = ({
 											)}
 										</div>
 
-										{/* Product Details */}
 										<div className="flex-1 min-w-0">
 											<div className="flex w-full justify-between items-start gap-2">
 												<div>
@@ -99,7 +95,6 @@ const CartContent = ({
 												<Remove item={item} />
 											</div>
 
-											{/* Quantity Controls */}
 											<div className="flex items-center gap-2">
 												<div className="flex items-center border rounded-md">
 													<Decrement item={item} />
@@ -119,7 +114,6 @@ const CartContent = ({
 						})}
 					</div>
 
-					{/* Sticky Footer with Subtotal and Checkout Button */}
 					<div className="shrink-0 border-t pt-4 pb-2 px-4 mt-4 space-y-4 bg-background shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
 						<div className="flex items-center justify-between text-base font-semibold px-1">
 							<span>Subtotal</span>

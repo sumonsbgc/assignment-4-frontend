@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { ICart } from "@/models/Cart";
 import { Plus } from "lucide-react";
-import { updateCartItemAction } from "@/modules/shared/actions/cart.actions";
+import { updateCartItemAction } from "../actions/cart.actions";
 
 const Increment = ({ item }: { item: ICart }) => {
 	return (

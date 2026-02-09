@@ -1,5 +1,11 @@
 import { LoginForm } from "@/modules/auth/login/LoginForm";
 
+export const metadata = {
+	title: "Login - MediStore",
+	description:
+		"Login to your MediStore account to manage orders, track deliveries, and enjoy personalized shopping experience.",
+};
+
 export default async function Page() {
 	return (
 		<div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">

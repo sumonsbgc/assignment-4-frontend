@@ -83,9 +83,7 @@ export async function updateCartItemAction(
 		return {
 			success: false,
 			message:
-				error instanceof Error
-					? error.message
-					: "Failed to update cart item",
+				error instanceof Error ? error.message : "Failed to update cart item",
 			data: null,
 		};
 	}
