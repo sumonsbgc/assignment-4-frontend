@@ -8,10 +8,12 @@ interface OrdersPaginationProps {
 		page: number;
 		totalPages: number;
 	};
+	basePath: string; // e.g., "/admin/orders" or "/seller/orders"
 }
 
 export default function OrdersPagination({
 	pagination,
+	basePath,
 }: OrdersPaginationProps) {
 	const router = useRouter();
 	const searchParams = useSearchParams();
@@ -20,7 +22,7 @@ export default function OrdersPagination({
 	const handlePageChange = (newPage: number) => {
 		const params = new URLSearchParams(searchParams.toString());
 		params.set("page", newPage.toString());
-		router.push(`/orders?${params.toString()}`);
+		router.push(`${basePath}?${params.toString()}`);
 	};
 
 	return (

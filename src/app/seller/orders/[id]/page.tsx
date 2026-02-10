@@ -10,7 +10,8 @@ import {
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import { SellerOrderActions } from "../_components/SellerOrderActions";
+import { OrderActions } from "@/modules/order/components";
+import { Role } from "@/lib/roles";
 
 type Props = {
 	params: Promise<{ id: string }>;
@@ -45,7 +46,7 @@ export default async function SellerOrderDetailPage({ params }: Props) {
 					</Link>
 				</Button>
 
-				<SellerOrderActions order={order} />
+				<OrderActions order={order} role={Role.SELLER} />
 			</div>
 
 			<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

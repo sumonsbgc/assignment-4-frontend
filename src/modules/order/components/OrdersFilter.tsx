@@ -10,7 +10,11 @@ import {
 } from "@/components/ui/select";
 import { OrderStatus } from "@/models/Order";
 
-export function AdminOrdersFilter() {
+type OrdersFilterProps = {
+	basePath: string; // e.g., "/admin/orders" or "/seller/orders"
+};
+
+export function OrdersFilter({ basePath }: OrdersFilterProps) {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const currentStatus = searchParams.get("status") || "ALL";
@@ -22,8 +26,8 @@ export function AdminOrdersFilter() {
 		} else {
 			params.set("status", value);
 		}
-		params.set("page", "1");
-		router.push(`/admin/orders?${params.toString()}`);
+		params.set("page", "1"); // Reset to page 1 when filtering
+		router.push(`${basePath}?${params.toString()}`);
 	};
 
 	return (

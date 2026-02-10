@@ -8,12 +8,17 @@ import {
 } from "@/components/ui/table";
 import { IOrder } from "@/models/Order";
 import { Badge } from "@/components/ui/badge";
-import { getPaymentStatusColor, getStatusColor } from "../..";
+import { getPaymentStatusColor, getStatusColor } from "..";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Eye } from "lucide-react";
 
-export const AdminOrderList = ({ orders }: { orders: IOrder[] }) => {
+type OrderListProps = {
+	orders: IOrder[];
+	basePath: string; // e.g., "/admin/orders" or "/seller/orders"
+};
+
+export function OrderList({ orders, basePath }: OrderListProps) {
 	return (
 		<Table>
 			<TableHeader>
@@ -57,7 +62,7 @@ export const AdminOrderList = ({ orders }: { orders: IOrder[] }) => {
 						</TableCell>
 						<TableCell className="text-right">
 							<Button variant="ghost" size="sm" asChild>
-								<Link href={`/admin/orders/${order.id}`}>
+								<Link href={`${basePath}/${order.id}`}>
 									<Eye className="w-4 h-4 mr-2" />
 									View
 								</Link>
@@ -68,4 +73,4 @@ export const AdminOrderList = ({ orders }: { orders: IOrder[] }) => {
 			</TableBody>
 		</Table>
 	);
-};
+}

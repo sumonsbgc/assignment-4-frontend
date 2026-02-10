@@ -24,7 +24,7 @@ import { Loader2 } from "lucide-react";
 import {
 	updateOrderStatus,
 	type UpdateOrderStatusData,
-} from "@/modules/order/services/admin";
+} from "@/modules/order/services";
 
 import { useRouter } from "next/navigation";
 import { aark } from "aark-react-modalify";

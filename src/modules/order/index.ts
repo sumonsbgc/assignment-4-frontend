@@ -1,7 +1,5 @@
 // Services
-export * from "./services/createOrder";
-export * from "./services/getOrders";
-export * from "./services/getOrderById";
+export * from "./services";
 
 // Hooks
 export * from "./hooks/useCheckout";

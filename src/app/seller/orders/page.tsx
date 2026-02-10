@@ -1,26 +1,14 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { Search, Eye } from "lucide-react";
-import Link from "next/link";
-import { getSellerOrders } from "@/modules/order/services/seller";
+import { Search } from "lucide-react";
+import { getSellerOrders } from "@/modules/order/services";
 import { OrderStatus } from "@/models/Order";
-import {
-	getStatusColor,
-	getPaymentStatusColor,
-} from "@/modules/order/utils/statusColors";
 import { Metadata } from "next";
-import { SellerOrdersFilter } from "./_components/SellerOrdersFilter";
-import { SellerOrdersPagination } from "./_components/SellerOrdersPagination";
+import {
+	OrdersFilter,
+	OrdersPagination,
+	OrderList,
+} from "@/modules/order/components";
 
 export const metadata: Metadata = {
 	title: "My Orders - Seller | MediStore",
@@ -67,7 +55,7 @@ export default async function SellerOrdersPage({
 							<Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
 							<Input placeholder="Search orders..." className="pl-10" />
 						</div>
-						<SellerOrdersFilter />
+						<OrdersFilter basePath="/seller/orders" />
 					</div>
 				</CardHeader>
 				<CardContent>
@@ -77,65 +65,12 @@ export default async function SellerOrdersPage({
 						</div>
 					) : (
 						<>
-							<Table>
-								<TableHeader>
-									<TableRow>
-										<TableHead>Order Number</TableHead>
-										<TableHead>Customer</TableHead>
-										<TableHead>Date</TableHead>
-										<TableHead>Items</TableHead>
-										<TableHead>Total</TableHead>
-										<TableHead>Status</TableHead>
-										<TableHead>Payment</TableHead>
-										<TableHead className="text-right">Actions</TableHead>
-									</TableRow>
-								</TableHeader>
-								<TableBody>
-									{orders.map((order) => (
-										<TableRow key={order.id}>
-											<TableCell className="font-medium">
-												{order.orderNumber}
-											</TableCell>
-											<TableCell>
-												{order.user?.name || "N/A"}
-												<div className="text-xs text-muted-foreground">
-													{order.user?.email}
-												</div>
-											</TableCell>
-											<TableCell>
-												{new Date(order.createdAt).toLocaleDateString()}
-											</TableCell>
-											<TableCell>{order.orderItems?.length || 0}</TableCell>
-											<TableCell className="font-semibold">
-												৳{order.totalAmount.toFixed(2)}
-											</TableCell>
-											<TableCell>
-												<Badge className={getStatusColor(order.status)}>
-													{order.status}
-												</Badge>
-											</TableCell>
-											<TableCell>
-												<Badge
-													className={getPaymentStatusColor(order.paymentStatus)}
-												>
-													{order.paymentStatus}
-												</Badge>
-											</TableCell>
-											<TableCell className="text-right">
-												<Button variant="ghost" size="sm" asChild>
-													<Link href={`/seller/orders/${order.id}`}>
-														<Eye className="w-4 h-4 mr-2" />
-														View
-													</Link>
-												</Button>
-											</TableCell>
-										</TableRow>
-									))}
-								</TableBody>
-							</Table>
-
+							<OrderList orders={orders} basePath="/seller/orders" />
 							<div className="mt-6">
-								<SellerOrdersPagination pagination={pagination} />
+								<OrdersPagination
+									pagination={pagination}
+									basePath="/seller/orders"
+								/>
 							</div>
 						</>
 					)}

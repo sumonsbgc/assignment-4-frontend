@@ -23,7 +23,7 @@ import { Loader2 } from "lucide-react";
 import {
 	updatePaymentStatus,
 	type UpdatePaymentStatusData,
-} from "@/modules/order/services/admin";
+} from "@/modules/order/services";
 import { useRouter } from "next/navigation";
 import { aark } from "aark-react-modalify";
 

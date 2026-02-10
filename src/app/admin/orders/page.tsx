@@ -1,15 +1,15 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-import { getAllOrders } from "@/modules/order/services/admin";
+import { getAllOrders } from "@/modules/order/services";
 import { OrderStatus } from "@/models/Order";
 import { Metadata } from "next";
 
 import {
-	AdminOrdersFilter,
-	AdminOrdersPagination,
-	AdminOrderList,
-} from "@/modules/order/components/admin";
+	OrdersFilter,
+	OrdersPagination,
+	OrderList,
+} from "@/modules/order/components";
 
 export const metadata: Metadata = {
 	title: "All Orders - Admin | MediStore",
@@ -54,7 +54,7 @@ export default async function AdminOrdersPage({
 							<Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
 							<Input placeholder="Search orders..." className="pl-10" />
 						</div>
-						<AdminOrdersFilter />
+						<OrdersFilter basePath="/admin/orders" />
 					</div>
 				</CardHeader>
 				<CardContent>
@@ -64,9 +64,12 @@ export default async function AdminOrdersPage({
 						</div>
 					) : (
 						<>
-							<AdminOrderList orders={orders} />
+							<OrderList orders={orders} basePath="/admin/orders" />
 							<div className="mt-6">
-								<AdminOrdersPagination pagination={pagination} />
+								<OrdersPagination
+									pagination={pagination}
+									basePath="/admin/orders"
+								/>
 							</div>
 						</>
 					)}

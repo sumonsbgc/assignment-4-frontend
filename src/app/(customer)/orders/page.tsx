@@ -45,7 +45,7 @@ export default async function OrdersPage({ searchParams }: OrdersPageProps) {
 						))}
 					</div>
 
-					<OrdersPagination pagination={pagination} />
+					<OrdersPagination pagination={pagination} basePath="/orders" />
 				</>
 			)}
 		</div>
