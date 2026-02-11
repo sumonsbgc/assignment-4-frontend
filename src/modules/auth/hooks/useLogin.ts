@@ -29,6 +29,8 @@ export const useLogin = () => {
 			setIsError(false);
 			const response = await login(value);
 
+			console.log("Login Response", response);
+
 			if (response.status && response.user) {
 				aark.notification({
 					title: "Login Successful",
