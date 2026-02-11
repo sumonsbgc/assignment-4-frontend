@@ -2,7 +2,7 @@ import React from "react";
 import { Header } from "../_partials/Header";
 import Footer from "../_partials/Footer";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 const WebLayout = ({ children }: { children: React.ReactNode }) => {
 	return (

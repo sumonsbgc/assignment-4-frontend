@@ -8,7 +8,7 @@ export const metadata = {
 	description: "View and manage your shopping cart",
 };
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export default async function CartPage() {
 	const { isAuthenticated } = await getSession();

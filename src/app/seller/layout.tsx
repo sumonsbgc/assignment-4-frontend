@@ -8,7 +8,7 @@ import { getSession } from "@/lib/getSession";
 import { Role } from "@/lib/roles";
 import { IUser } from "@/models/Models";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 const SellerLayout = async ({ children }: { children: React.ReactNode }) => {
 	const cookieStore = await cookies();

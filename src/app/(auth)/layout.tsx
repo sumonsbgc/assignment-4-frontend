@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 	description: "Login or register to access your MediStore account.",
 };
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
 	return (

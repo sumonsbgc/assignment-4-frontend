@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 	description: "Manage your MediStore account, orders, and profile.",
 };
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 const CustomerLayout = async ({ children }: { children: React.ReactNode }) => {
 	const cookieStore = await cookies();
