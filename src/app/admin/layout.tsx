@@ -6,6 +6,9 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { DashboardHeader } from "../_partials/DashboardHeader";
 import { getSession } from "@/lib/getSession";
 import { Role } from "@/lib/roles";
+import { IUser } from "@/models/Models";
+
+export const dynamic = 'force-dynamic';
 
 const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
 	const cookieStore = await cookies();
@@ -20,7 +23,7 @@ const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
 		<SidebarProvider defaultOpen={isDefaultOpen}>
 			<AppSidebar />
 			<SidebarInset>
-				<DashboardHeader user={user} />
+				<DashboardHeader user={user as IUser} />
 				{children}
 			</SidebarInset>
 		</SidebarProvider>
