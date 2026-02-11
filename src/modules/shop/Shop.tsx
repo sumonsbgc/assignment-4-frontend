@@ -1,9 +1,10 @@
 import FilterSection from "./sections/FilterSection";
 import MedicineCard from "./components/MedicineCard";
 import ShopPagination from "./components/ShopPagination";
-import { getCategories, getMedicines } from "./services";
+import { getMedicines } from "./services";
 import { modifiedFilters } from "./services/modifiedFilters";
 import type { MedicineFilters } from "./types";
+import { getCategories } from "./services/getCategories";
 
 export default async function Shop({
 	searchParams,

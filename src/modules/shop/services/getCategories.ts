@@ -8,7 +8,7 @@ export const getCategories = async (): Promise<CategoriesResponse> => {
 		if (!response.data) {
 			throw new Error("No data received from API");
 		}
-		
+
 		return response.data;
 	} catch (error) {
 		console.error("Error fetching categories:", error);

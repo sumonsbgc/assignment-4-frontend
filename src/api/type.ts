@@ -18,7 +18,7 @@ export interface HttpClient {
 		method: HttpMethod,
 		url: string,
 		body?: unknown,
-		options?: RequestOptions
+		options?: RequestOptions,
 	): Promise<ResponseData<T>>;
 }
 
@@ -32,6 +32,6 @@ export interface IHeaderManager {
 export interface IURLBuilder {
 	buildURL(
 		endpoint: string,
-		params?: Record<string, string | number | boolean>
+		params?: Record<string, string | number | boolean>,
 	): string;
 }
