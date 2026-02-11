@@ -49,9 +49,7 @@ export const CategoryModals = ({ categories }: CategoryModalsProps) => {
 
 	const closeModal = () => setModal({ type: null });
 	const availableCategories = modal.category
-		? categories.filter(
-				(cat) => cat.id !== modal.category!.id && cat?.isActive !== false,
-			)
+		? categories.filter((cat) => cat.id !== modal.category!.id)
 		: categories;
 
 	return (
