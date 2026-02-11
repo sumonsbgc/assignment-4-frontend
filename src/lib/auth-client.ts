@@ -1,9 +1,9 @@
 import { createAuthClient } from "better-auth/react";
 import { inferAdditionalFields } from "better-auth/client/plugins";
-import config from "./config";
+// import config from "./config";
 
 export const auth = createAuthClient({
-	baseURL: config.appBaseUrl.toString(),
+	baseURL: typeof window !== "undefined" ? window.location.origin : "",
 	fetchOptions: {
 		credentials: "include",
 	},
