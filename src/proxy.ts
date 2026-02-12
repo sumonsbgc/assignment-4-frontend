@@ -11,6 +11,12 @@ import {
 
 export async function proxy(request: NextRequest) {
 	const { pathname } = request.nextUrl;
+
+	// Skip auth API routes — handled by the API route handler
+	if (pathname.startsWith("/api/auth")) {
+		return NextResponse.next();
+	}
+
 	const { session, user } = await getSession();
 	const role = user?.role || "CUSTOMER";
 
