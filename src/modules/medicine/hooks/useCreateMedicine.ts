@@ -75,6 +75,8 @@ export const useCreateMedicine = ({
 				categoryId: value.categoryId,
 			};
 
+			console.log("Submitting Medicine Data:", medicineData);
+
 			const response = await createMedicine(medicineData);
 
 			console.log("Create Medicine Response:", response);

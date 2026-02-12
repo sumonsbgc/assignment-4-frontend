@@ -25,6 +25,8 @@ export const createMedicine = async (
 			},
 		);
 
+		console.log("API Response:", res);
+
 		if (!res.success || res.error || !res.data?.data) {
 			return {
 				status: false,
