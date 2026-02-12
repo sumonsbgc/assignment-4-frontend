@@ -1,6 +1,7 @@
 import { getUserById } from "@/modules/user/services/getUserById";
 import { UserDetail } from "@/modules/user/components/UserDetail";
 import { UserStatusActions } from "@/modules/user/components/UserStatusActions";
+import { ProfileEditForm } from "@/modules/user/components/ProfileEditForm";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
@@ -39,8 +40,13 @@ export default async function AdminUserDetailPage({
 			</div>
 
 			<div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-				<div className="lg:col-span-2">
+				<div className="lg:col-span-2 space-y-6">
 					<UserDetail user={user} />
+					<ProfileEditForm
+						user={user}
+						title="Edit User Profile"
+						description="Update this user's personal information"
+					/>
 				</div>
 
 				<div>

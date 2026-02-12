@@ -3,10 +3,19 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
 import type { User } from "../types";
 import { UserStatus } from "../types";
 import { useUpdateUserStatus } from "../hooks/useUpdateUserStatus";
+import { useUpdateUserRole } from "../hooks/useUpdateUserRole";
 import { useDeleteUser } from "../hooks/useDeleteUser";
+import { Role, RoleLabels } from "@/lib/roles";
 import dayjs from "dayjs";
 
 type UserStatusActionsProps = {
@@ -16,9 +25,10 @@ type UserStatusActionsProps = {
 export const UserStatusActions = ({ user }: UserStatusActionsProps) => {
 	const { handleStatusChange, isPending: isStatusPending } =
 		useUpdateUserStatus();
+	const { handleRoleChange, isPending: isRolePending } = useUpdateUserRole();
 	const { handleDelete, isPending: isDeletePending } = useDeleteUser();
 
-	const isPending = isStatusPending || isDeletePending;
+	const isPending = isStatusPending || isDeletePending || isRolePending;
 
 	return (
 		<div className="space-y-6">
@@ -55,6 +65,32 @@ export const UserStatusActions = ({ user }: UserStatusActionsProps) => {
 							{dayjs(user.updatedAt).format("MMMM D, YYYY")}
 						</p>
 					</div>
+				</CardContent>
+			</Card>
+
+			{/* Role Management Card */}
+			<Card>
+				<CardHeader>
+					<CardTitle>Role Management</CardTitle>
+				</CardHeader>
+				<CardContent className="space-y-3">
+					<p className="text-sm text-gray-600">Change user role</p>
+					<Select
+						defaultValue={user.role}
+						disabled={isPending}
+						onValueChange={(value) => handleRoleChange(user, value as Role)}
+					>
+						<SelectTrigger className="w-full">
+							<SelectValue placeholder="Select role" />
+						</SelectTrigger>
+						<SelectContent>
+							{Object.values(Role).map((role) => (
+								<SelectItem key={role} value={role}>
+									{RoleLabels[role]}
+								</SelectItem>
+							))}
+						</SelectContent>
+					</Select>
 				</CardContent>
 			</Card>
 
