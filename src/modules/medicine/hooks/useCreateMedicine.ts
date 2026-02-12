@@ -77,6 +77,8 @@ export const useCreateMedicine = ({
 
 			const response = await createMedicine(medicineData);
 
+			console.log("Create Medicine Response:", response);
+
 			if (response.status && response.data) {
 				aark.notification({
 					title: "Medicine Created",

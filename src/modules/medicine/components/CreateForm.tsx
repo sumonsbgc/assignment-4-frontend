@@ -22,7 +22,11 @@ type CreateFormProps = {
 	redirectPath?: string;
 };
 
-export const CreateForm = ({ categories, onSuccess, redirectPath }: CreateFormProps) => {
+export const CreateForm = ({
+	categories,
+	onSuccess,
+	redirectPath,
+}: CreateFormProps) => {
 	const { form } = useCreateMedicine({ onSuccess, redirectPath });
 
 	return (
