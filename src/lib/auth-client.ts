@@ -2,7 +2,7 @@ import { createAuthClient } from "better-auth/react";
 import { inferAdditionalFields } from "better-auth/client/plugins";
 
 export const auth = createAuthClient({
-	baseURL: process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000",
+	baseURL: process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000",
 	basePath: "/api/auth",
 	fetchOptions: {
 		credentials: "include",
