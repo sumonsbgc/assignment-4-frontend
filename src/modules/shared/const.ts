@@ -4,4 +4,6 @@ export enum CacheTags {
 	Categories = "Categories",
 	Carts = "Carts",
 	Order = "Order",
+	Users = "Users",
+	User = "User",
 }
