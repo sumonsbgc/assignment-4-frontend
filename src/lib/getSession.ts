@@ -6,6 +6,7 @@ export const getSession = async () => {
 		const response = await auth.getSession({
 			fetchOptions: {
 				headers: await headers(),
+				credentials: "include",
 			},
 		});
 
