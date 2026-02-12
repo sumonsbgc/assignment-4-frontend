@@ -12,62 +12,52 @@ import {
 export async function proxy(request: NextRequest) {
 	const { pathname } = request.nextUrl;
 
-	// Skip auth API routes — handled by the API route handler
 	if (pathname.startsWith("/api/auth")) {
 		return NextResponse.next();
 	}
 
-	const { session, user } = await getSession();
+	const { user, isAuthenticated } = await getSession();
 	const role = user?.role || "CUSTOMER";
 
-	// console.log("Proxy Middleware - Session:", { session, user });
-
-	// Check if route is public
 	const isPublicRoute = publicRoutes.some((route) =>
 		matchRoute(pathname, route),
 	);
 
-	// Auth routes - redirect authenticated users to dashboard
-	if ((pathname === "/login" || pathname === "/register") && session) {
+	if ((pathname === "/login" || pathname === "/register") && isAuthenticated) {
 		return NextResponse.redirect(
 			new URL(getDashboardByRole(role), request.url),
 		);
 	}
 
-	// Public routes - allow access
 	if (isPublicRoute) {
 		return NextResponse.next();
 	}
 
-	// Protected routes - require authentication
-	if (!session) {
+	if (!isAuthenticated) {
 		return NextResponse.redirect(new URL("/login", request.url));
 	}
 
-	// Check role-based access
 	const isAdminRoute = adminRoutes.some((route) => matchRoute(pathname, route));
 	const isSellerRoute = sellerRoutes.some((route) =>
 		matchRoute(pathname, route),
 	);
+
 	const isCustomerRoute = customerRoutes.some((route) =>
 		matchRoute(pathname, route),
 	);
 
-	// Admin routes - require ADMIN role
 	if (isAdminRoute && role !== "ADMIN") {
 		return NextResponse.redirect(
 			new URL(getDashboardByRole(role), request.url),
 		);
 	}
 
-	// Seller routes - require SELLER role
 	if (isSellerRoute && role !== "SELLER") {
 		return NextResponse.redirect(
 			new URL(getDashboardByRole(role), request.url),
 		);
 	}
 
-	// Customer routes - require CUSTOMER role
 	if (isCustomerRoute && role !== "CUSTOMER") {
 		return NextResponse.redirect(
 			new URL(getDashboardByRole(role), request.url),

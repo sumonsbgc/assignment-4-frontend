@@ -7,3 +7,4 @@ export * from "./CategoryModals";
 export * from "./CategoryList";
 export * from "./CategoryPagination";
 export * from "./Filters";
+export * from "./skeleton/CategoriesSkeleton";

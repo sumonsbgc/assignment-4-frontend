@@ -1,4 +1,5 @@
 import Categories from "@/modules/category/Categories";
+import { CategoriesSkeleton } from "@/modules/category/components";
 import { Suspense } from "react";
 
 type AdminCategoriesPageProps = {
@@ -14,7 +15,7 @@ export default async function AdminCategoriesPage({
 	const params = await searchParams;
 
 	return (
-		<Suspense fallback={<div>Loading...</div>}>
+		<Suspense fallback={<CategoriesSkeleton />}>
 			<Categories searchParams={params} />
 		</Suspense>
 	);
