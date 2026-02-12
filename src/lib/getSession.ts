@@ -1,28 +1,16 @@
+import { auth } from "./auth-client";
 import { headers } from "next/headers";
 
 export const getSession = async () => {
-	const backendUrl =
-		process.env.BACKEND_URL ||
-		process.env.NEXT_PUBLIC_BACKEND_URL ||
-		"http://localhost:5000";
-
 	try {
-		const reqHeaders = await headers();
-		const cookie = reqHeaders.get("cookie") || "";
-
-		const response = await fetch(`${backendUrl}/api/auth/get-session`, {
-			method: "GET",
-			headers: {
-				cookie,
+		const response = await auth.getSession({
+			fetchOptions: {
+				headers: await headers(),
+				credentials: "include",
 			},
 		});
 
-		if (!response.ok) {
-			return { session: null, user: null, isAuthenticated: false };
-		}
-
-		const data = await response.json();
-		const { session, user } = data ?? {};
+		const { session, user } = response?.data ?? {};
 		const isAuthenticated = !!session && !!user;
 		return { session, user, isAuthenticated };
 	} catch (error) {
@@ -32,7 +20,6 @@ export const getSession = async () => {
 };
 
 export const logOut = async () => {
-	const { auth } = await import("./auth-client");
 	await auth.signOut();
 	window.location.href = "/";
 };
