@@ -8,14 +8,11 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
+import Link from "next/link";
 
-import {
-	AddMedicineButton,
-	MedicineModals,
-	MedicineList,
-	MedicinePagination,
-	Filters,
-} from "./components";
+import { MedicineList, MedicinePagination, Filters } from "./components";
 
 const Medicines = async ({
 	searchParams,
@@ -50,7 +47,12 @@ const Medicines = async ({
 					<h1 className="text-3xl font-bold">Medicines</h1>
 					<p className="text-gray-600">Manage your medicine inventory</p>
 				</div>
-				<AddMedicineButton />
+				<Button asChild>
+					<Link href="/seller/medicines/new">
+						<Plus className="w-4 h-4 mr-2" />
+						Add Medicine
+					</Link>
+				</Button>
 			</div>
 
 			<Card>
@@ -77,9 +79,6 @@ const Medicines = async ({
 					)}
 				</CardFooter>
 			</Card>
-
-			{/* Modal Management Component */}
-			<MedicineModals categories={categories} />
 		</div>
 	);
 };

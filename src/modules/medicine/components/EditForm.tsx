@@ -21,14 +21,16 @@ type EditFormProps = {
 	medicine: Medicine;
 	categories: ICategory[];
 	onSuccess?: () => void;
+	redirectPath?: string;
 };
 
 export const EditForm = ({
 	medicine,
 	categories,
 	onSuccess,
+	redirectPath,
 }: EditFormProps) => {
-	const { form } = useUpdateMedicine({ medicine, onSuccess });
+	const { form } = useUpdateMedicine({ medicine, onSuccess, redirectPath });
 
 	return (
 		<form

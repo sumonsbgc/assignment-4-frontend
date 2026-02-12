@@ -7,5 +7,6 @@ export * from "./MedicineList";
 export * from "./MedicinePagination";
 export * from "./Filters";
 export * from "./AdminMedicineList";
+export * from "./MedicineDetail";
 export * from "./skeleton/MedicinesSkeleton";
 export * from "./skeleton/AdminMedicinesSkeleton";

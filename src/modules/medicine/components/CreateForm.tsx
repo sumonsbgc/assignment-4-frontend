@@ -19,10 +19,11 @@ import { Switch } from "@/components/ui/switch";
 type CreateFormProps = {
 	categories: ICategory[];
 	onSuccess?: () => void;
+	redirectPath?: string;
 };
 
-export const CreateForm = ({ categories, onSuccess }: CreateFormProps) => {
-	const { form } = useCreateMedicine({ onSuccess });
+export const CreateForm = ({ categories, onSuccess, redirectPath }: CreateFormProps) => {
+	const { form } = useCreateMedicine({ onSuccess, redirectPath });
 
 	return (
 		<form

@@ -111,7 +111,7 @@ export const AdminMedicineList = ({ medicines }: { medicines: Medicine[] }) => {
 							<TableCell>{getStatusBadge(medicine)}</TableCell>
 							<TableCell className="text-right">
 								<Button variant="ghost" size="icon" asChild>
-									<Link href={`/shop/${medicine.slug}`}>
+									<Link href={`/admin/medicines/${medicine.id}`}>
 										<Eye className="w-4 h-4" />
 									</Link>
 								</Button>
