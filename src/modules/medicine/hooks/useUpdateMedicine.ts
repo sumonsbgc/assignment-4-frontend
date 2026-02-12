@@ -8,6 +8,7 @@ import { updateMedicineSchema } from "../validation/medicineValidation";
 import { updateMedicine } from "../services/updateMedicine";
 import type { Medicine } from "../types";
 import { getSlug } from "@/lib/utils";
+import dayjs from "dayjs";
 
 type UseUpdateMedicineProps = {
 	medicine: Medicine;
@@ -74,7 +75,9 @@ export const useUpdateMedicine = ({
 				strength: value.strength || undefined,
 				packSize: value.packSize || undefined,
 				requiresPrescription: value.requiresPrescription,
-				expiryDate: value.expiryDate || undefined,
+				expiryDate: value.expiryDate
+					? dayjs(value.expiryDate).toISOString()
+					: undefined,
 				ingredients: value.ingredients || undefined,
 				sideEffects: value.sideEffects || undefined,
 				warnings: value.warnings || undefined,

@@ -7,6 +7,7 @@ import { aark } from "aark-react-modalify";
 import { createMedicineSchema } from "../validation/medicineValidation";
 import { createMedicine } from "../services/createMedicine";
 import { getSlug } from "@/lib/utils";
+import dayjs from "dayjs";
 
 type UseCreateMedicineProps = {
 	onSuccess?: () => void;
@@ -67,7 +68,9 @@ export const useCreateMedicine = ({
 				strength: value.strength || undefined,
 				packSize: value.packSize || undefined,
 				requiresPrescription: value.requiresPrescription,
-				expiryDate: value.expiryDate || undefined,
+				expiryDate: value.expiryDate
+					? dayjs(value.expiryDate).toISOString()
+					: undefined,
 				ingredients: value.ingredients || undefined,
 				sideEffects: value.sideEffects || undefined,
 				warnings: value.warnings || undefined,
