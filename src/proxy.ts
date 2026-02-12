@@ -14,7 +14,7 @@ export async function proxy(request: NextRequest) {
 	const { session, user } = await getSession();
 	const role = user?.role || "CUSTOMER";
 
-	console.log("Proxy Middleware - Session:", { session, user });
+	// console.log("Proxy Middleware - Session:", { session, user });
 
 	// Check if route is public
 	const isPublicRoute = publicRoutes.some((route) =>

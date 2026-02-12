@@ -112,13 +112,13 @@ export default function Footer() {
 						</h3>
 						<ul className="space-y-3">
 							<li className="flex items-start gap-2">
-								<MapPin className="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" />
+								<MapPin className="h-5 w-5 text-green-400 shrink-0 mt-0.5" />
 								<span className="text-sm">
 									123 Pharmacy Street, Medical City, MC 12345
 								</span>
 							</li>
 							<li className="flex items-center gap-2">
-								<Phone className="h-5 w-5 text-green-400 flex-shrink-0" />
+								<Phone className="h-5 w-5 text-green-400 shrink-0" />
 								<a
 									href="tel:+1234567890"
 									className="text-sm hover:text-green-400 transition-colors cursor-pointer"
@@ -127,7 +127,7 @@ export default function Footer() {
 								</a>
 							</li>
 							<li className="flex items-center gap-2">
-								<Mail className="h-5 w-5 text-green-400 flex-shrink-0" />
+								<Mail className="h-5 w-5 text-green-400 shrink-0" />
 								<a
 									href="mailto:info@pharmacy.com"
 									className="text-sm hover:text-green-400 transition-colors cursor-pointer"

@@ -34,7 +34,7 @@ export class UrlBuilder implements IURLBuilder {
 			this.baseURL?.endsWith("/") ? this.baseURL : this.baseURL + "/",
 		);
 
-		console.log({ url, endpointWithPrefix });
+		console.log({ url, endpointWithPrefix }, "API URL");
 
 		if (!params || Object.keys(params).length === 0) {
 			return url.toString();
