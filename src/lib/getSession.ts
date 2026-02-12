@@ -1,19 +1,20 @@
 import { headers } from "next/headers";
 
-const BACKEND_URL =
-	process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
-
 export const getSession = async () => {
+	const backendUrl =
+		process.env.BACKEND_URL ||
+		process.env.NEXT_PUBLIC_BACKEND_URL ||
+		"http://localhost:5000";
+
 	try {
 		const reqHeaders = await headers();
 		const cookie = reqHeaders.get("cookie") || "";
 
-		const response = await fetch(`${BACKEND_URL}/api/auth/get-session`, {
+		const response = await fetch(`${backendUrl}/api/auth/get-session`, {
 			method: "GET",
 			headers: {
 				cookie,
 			},
-			credentials: "include",
 		});
 
 		if (!response.ok) {

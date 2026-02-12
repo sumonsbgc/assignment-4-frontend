@@ -2,24 +2,17 @@ import { NextRequest } from "next/server";
 
 export const dynamic = "force-dynamic";
 
-function getBackendUrl() {
-	const url =
+async function handler(req: NextRequest) {
+	const backendUrl =
 		process.env.BACKEND_URL ||
 		process.env.NEXT_PUBLIC_BACKEND_URL ||
 		"http://localhost:5000";
-	return url;
-}
 
-async function handler(req: NextRequest) {
-	const backendUrl = getBackendUrl();
 	const path = req.nextUrl.pathname;
 	const search = req.nextUrl.search;
 	const targetUrl = `${backendUrl}${path}${search}`;
 
-	console.log("[auth-proxy] Proxying to:", targetUrl);
-
 	const headers = new Headers(req.headers);
-	// Remove host header so it's not forwarded to the backend
 	headers.delete("host");
 
 	try {
@@ -32,9 +25,12 @@ async function handler(req: NextRequest) {
 					: undefined,
 		});
 
-		const responseHeaders = new Headers(response.headers);
+		const responseHeaders = new Headers();
 
-		console.log("[auth-proxy] Response status:", response.status);
+		// Forward all headers, especially Set-Cookie
+		response.headers.forEach((value, key) => {
+			responseHeaders.append(key, value);
+		});
 
 		return new Response(response.body, {
 			status: response.status,
@@ -42,8 +38,8 @@ async function handler(req: NextRequest) {
 			headers: responseHeaders,
 		});
 	} catch (error) {
-		console.error("[auth-proxy] Error:", error);
-		return new Response(JSON.stringify({ error: "Proxy failed", targetUrl }), {
+		console.error("[auth-proxy] Error proxying to:", targetUrl, error);
+		return new Response(JSON.stringify({ error: "Auth proxy failed" }), {
 			status: 502,
 			headers: { "Content-Type": "application/json" },
 		});
