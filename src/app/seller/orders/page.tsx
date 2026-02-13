@@ -1,11 +1,10 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
 import { getSellerOrders } from "@/modules/order/services";
 import { OrderStatus } from "@/models/Order";
 import { Metadata } from "next";
 import {
 	OrdersFilter,
+	OrderSearch,
 	OrdersPagination,
 	OrderList,
 } from "@/modules/order/components";
@@ -19,6 +18,7 @@ type SellerOrdersPageProps = {
 	searchParams: Promise<{
 		page?: string;
 		status?: string;
+		search?: string;
 	}>;
 };
 
@@ -28,6 +28,7 @@ export default async function SellerOrdersPage({
 	const params = await searchParams;
 	const currentPage = Number(params.page) || 1;
 	const statusFilter = params.status as OrderStatus | "ALL" | undefined;
+	const searchQuery = params.search || undefined;
 
 	const {
 		data: orders,
@@ -37,6 +38,7 @@ export default async function SellerOrdersPage({
 		currentPage,
 		20,
 		statusFilter && statusFilter !== "ALL" ? statusFilter : undefined,
+		searchQuery,
 	);
 
 	return (
@@ -51,10 +53,7 @@ export default async function SellerOrdersPage({
 			<Card>
 				<CardHeader>
 					<div className="flex flex-col md:flex-row gap-4">
-						<div className="relative flex-1">
-							<Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-							<Input placeholder="Search orders..." className="pl-10" />
-						</div>
+						<OrderSearch basePath="/seller/orders" />
 						<OrdersFilter basePath="/seller/orders" />
 					</div>
 				</CardHeader>

@@ -28,9 +28,6 @@ export default async function Home() {
 		getMedicines({ limit: 6, isFeatured: true }),
 	]);
 
-	// const categories = categoriesRes.data ?? [];
-	// const featuredMedicines = featuredRes.data ?? [];
-
 	return (
 		<div className="flex flex-col min-h-screen">
 			<section className="relative bg-linear-to-r from-green-600 to-teal-700 text-white py-20 md:py-32">

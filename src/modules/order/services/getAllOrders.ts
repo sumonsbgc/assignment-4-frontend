@@ -22,6 +22,7 @@ export async function getAllOrders(
 	page: number = 1,
 	limit: number = 20,
 	status?: OrderStatus,
+	search?: string,
 ): Promise<GetAllOrdersResponse> {
 	try {
 		const cookieStore = await cookies();
@@ -33,6 +34,10 @@ export async function getAllOrders(
 
 		if (status) {
 			params.append("status", status);
+		}
+
+		if (search) {
+			params.append("search", search);
 		}
 
 		const res = await api.get<{

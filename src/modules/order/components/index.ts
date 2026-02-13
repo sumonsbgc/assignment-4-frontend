@@ -1,6 +1,7 @@
 // Unified order components that work for both admin and seller
 export { OrderActions } from "./OrderActions";
 export { OrdersFilter } from "./OrdersFilter";
+export { OrderSearch } from "./OrderSearch";
 export { OrderList } from "./OrderList";
 export { default as OrdersPagination } from "./OrdersPagination";
 
