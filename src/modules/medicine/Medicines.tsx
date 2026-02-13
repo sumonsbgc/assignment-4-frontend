@@ -27,10 +27,8 @@ const Medicines = async ({
 	};
 }) => {
 	const filterOptions = prepareParams(searchParams);
-
 	const { user } = await getSession();
 
-	// Seller sees only their own medicines
 	if (user?.id) {
 		filterOptions.sellerId = user.id;
 	}
@@ -39,6 +37,8 @@ const Medicines = async ({
 		getMedicines(filterOptions),
 		getCategories({ isActive: true }),
 	]);
+
+	console.log(medicines, "medicines");
 
 	return (
 		<div className="flex flex-1 flex-col gap-4 p-4">

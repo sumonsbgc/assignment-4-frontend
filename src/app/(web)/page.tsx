@@ -18,12 +18,8 @@ import {
 	CheckCircle2,
 	Star,
 } from "lucide-react";
-import { getSession } from "@/lib/getSession";
 
 export default async function Home() {
-	const { session, user } = await getSession();
-	console.log("Home Page - Session:", { session, user });
-
 	return (
 		<div className="flex flex-col min-h-screen">
 			<section className="relative bg-linear-to-r from-green-600 to-teal-700 text-white py-20 md:py-32">

@@ -1,20 +1,16 @@
+import { Suspense } from "react";
+import { CustomerDashboard, DashboardSkeleton } from "@/modules/dashboard";
+
 export const metadata = {
 	title: "Dashboard - MediStore",
 	description:
 		"Manage your MediStore account, view orders, and track deliveries.",
 };
 
-const Dashboard = () => {
+export default function CustomerDashboardPage() {
 	return (
-		<div className="flex flex-1 flex-col gap-4 p-4">
-			<div className="grid auto-rows-min gap-4 md:grid-cols-3">
-				<div className="bg-muted/50 aspect-video rounded-xl" />
-				<div className="bg-muted/50 aspect-video rounded-xl" />
-				<div className="bg-muted/50 aspect-video rounded-xl" />
-			</div>
-			<div className="bg-muted/50 min-h-screen flex-1 rounded-xl md:min-h-min" />
-		</div>
+		<Suspense fallback={<DashboardSkeleton />}>
+			<CustomerDashboard />
+		</Suspense>
 	);
-};
-
-export default Dashboard;
+}
