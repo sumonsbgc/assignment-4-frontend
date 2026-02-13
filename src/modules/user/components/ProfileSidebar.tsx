@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { User } from "../types";
 import dayjs from "dayjs";
+import { getImageUrl } from "@/lib/image";
 
 type ProfileSidebarProps = {
 	user: User;
@@ -38,7 +39,9 @@ export const ProfileSidebar = ({ user }: ProfileSidebarProps) => {
 			<CardContent className="pt-6">
 				<div className="flex flex-col items-center text-center">
 					<Avatar className="w-24 h-24 mb-4">
-						{user.image && <AvatarImage src={user.image} alt={user.name} />}
+						{user.image && (
+							<AvatarImage src={getImageUrl(user.image)} alt={user.name} />
+						)}
 						<AvatarFallback className="text-2xl bg-primary text-primary-foreground">
 							{initials}
 						</AvatarFallback>

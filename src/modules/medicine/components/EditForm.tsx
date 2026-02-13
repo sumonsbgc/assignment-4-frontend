@@ -16,6 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
+import { ImageUpload } from "@/components/ui/image-upload";
 
 type EditFormProps = {
 	medicine: Medicine;
@@ -388,15 +389,12 @@ export const EditForm = ({
 					<form.Field name="imageUrl">
 						{(field) => (
 							<Field>
-								<FieldLabel htmlFor={field.name}>Image URL</FieldLabel>
-								<Input
-									id={field.name}
-									name={field.name}
+								<FieldLabel>Medicine Image</FieldLabel>
+								<ImageUpload
 									value={field.state.value}
-									onBlur={field.handleBlur}
-									onChange={(e) => field.handleChange(e.target.value)}
-									placeholder="https://example.com/image.jpg"
-									type="url"
+									onChange={(url) => field.handleChange(url)}
+									folder="medicines"
+									label="Upload medicine image"
 								/>
 							</Field>
 						)}

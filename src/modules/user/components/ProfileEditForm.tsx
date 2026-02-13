@@ -13,6 +13,7 @@ import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Mail, Phone, User as UserIcon } from "lucide-react";
 import type { User } from "../types";
 import { useUpdateProfile } from "../hooks/useUpdateProfile";
+import { ImageUpload } from "@/components/ui/image-upload";
 
 type ProfileEditFormProps = {
 	user: User;
@@ -44,6 +45,22 @@ export const ProfileEditForm = ({
 					}}
 					className="space-y-4"
 				>
+					{/* Profile Image */}
+					<form.Field name="image">
+						{(field) => (
+							<Field>
+								<FieldLabel>Profile Photo</FieldLabel>
+								<ImageUpload
+									value={field.state.value}
+									onChange={(url) => field.handleChange(url)}
+									folder="users"
+									label="Upload photo"
+									rounded
+								/>
+							</Field>
+						)}
+					</form.Field>
+
 					{/* Name */}
 					<form.Field name="name">
 						{(field) => {

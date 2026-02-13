@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
+import { ImageUpload } from "@/components/ui/image-upload";
 
 type CreateFormProps = {
 	categories: ICategory[];
@@ -81,15 +82,12 @@ export const CreateForm = ({ categories, onSuccess }: CreateFormProps) => {
 				<form.Field name="image">
 					{(field) => (
 						<Field>
-							<FieldLabel htmlFor={field.name}>Image URL</FieldLabel>
-							<Input
-								id={field.name}
-								name={field.name}
+							<FieldLabel>Category Image</FieldLabel>
+							<ImageUpload
 								value={field.state.value}
-								onBlur={field.handleBlur}
-								onChange={(e) => field.handleChange(e.target.value)}
-								placeholder="https://example.com/image.jpg"
-								type="url"
+								onChange={(url) => field.handleChange(url)}
+								folder="categories"
+								label="Upload category image"
 							/>
 						</Field>
 					)}

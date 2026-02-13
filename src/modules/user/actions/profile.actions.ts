@@ -5,7 +5,7 @@ import type { UpdateUserBody } from "../types";
 
 export type UpdateProfileData = Pick<
 	UpdateUserBody,
-	"name" | "email" | "phone"
+	"name" | "email" | "phone" | "image"
 >;
 
 export const updateProfileAction = async (

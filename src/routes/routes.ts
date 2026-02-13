@@ -1,6 +1,5 @@
 import {
 	FolderTree,
-	Home,
 	LayoutDashboard,
 	Package,
 	Settings,
@@ -78,11 +77,11 @@ const adminMenus: MenuItem[] = [
 		url: "/admin/orders",
 		icon: ShoppingCart,
 	},
-	{
-		title: "Settings",
-		url: "/admin/settings",
-		icon: Settings,
-	},
+	// {
+	// 	title: "Settings",
+	// 	url: "/admin/settings",
+	// 	icon: Settings,
+	// },
 ];
 
 const sellerMenus: MenuItem[] = [

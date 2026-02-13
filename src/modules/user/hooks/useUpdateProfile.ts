@@ -12,6 +12,7 @@ const profileSchema = z.object({
 	name: z.string().min(2, "Name must be at least 2 characters"),
 	email: z.string().email("Invalid email address"),
 	phone: z.string(),
+	image: z.string(),
 });
 
 type UseUpdateProfileProps = {
@@ -32,6 +33,7 @@ export const useUpdateProfile = ({
 			name: user.name || "",
 			email: user.email || "",
 			phone: user.phone || "",
+			image: user.image || "",
 		},
 		validators: {
 			onChange: profileSchema,
@@ -44,6 +46,7 @@ export const useUpdateProfile = ({
 				name: value.name,
 				email: value.email,
 				phone: value.phone || undefined,
+				image: value.image || undefined,
 			};
 
 			const result = await updateProfileAction(user.id, profileData);
