@@ -4,8 +4,7 @@ import { useCallback, useRef, useState } from "react";
 import { Upload, X, Loader2, ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { uploadImage } from "@/modules/shared/services/uploadImage";
-import { getImageUrl } from "@/lib/image";
-import { cn } from "@/lib/utils";
+import { getImageUrl, cn } from "@/lib/utils";
 
 type UploadFolder = "medicines" | "categories" | "users";
 

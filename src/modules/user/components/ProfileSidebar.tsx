@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { User } from "../types";
 import dayjs from "dayjs";
-import { getImageUrl } from "@/lib/image";
+import { getImageUrl } from "@/lib/utils";
 
 type ProfileSidebarProps = {
 	user: User;
