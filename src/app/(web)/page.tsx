@@ -23,13 +23,13 @@ import { getMedicines } from "@/modules/medicine/services/getMedicines";
 import Image from "next/image";
 
 export default async function Home() {
-	const [categoriesRes, featuredRes] = await Promise.all([
+	const [{ categories }, { medicines: featuredMedicines }] = await Promise.all([
 		getCategories({ limit: 6, isActive: true }),
 		getMedicines({ limit: 6, isFeatured: true }),
 	]);
 
-	const categories = categoriesRes.data ?? [];
-	const featuredMedicines = featuredRes.data ?? [];
+	// const categories = categoriesRes.data ?? [];
+	// const featuredMedicines = featuredRes.data ?? [];
 
 	return (
 		<div className="flex flex-col min-h-screen">
@@ -156,7 +156,7 @@ export default async function Home() {
 						</p>
 					</div>
 					<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-						{categories.length > 0 ? (
+						{categories?.length > 0 ? (
 							categories.map((category) => (
 								<Link
 									key={category.id}
