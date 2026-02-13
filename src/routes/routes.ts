@@ -173,6 +173,7 @@ export const getRoleMenuItems = (role: string) => {
 		case Role.CUSTOMER:
 		default:
 			return [
+				{ title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
 				{ title: "Orders", url: "/orders", icon: FolderTree },
 				{ title: "Profile", url: "/profile", icon: User },
 			];
