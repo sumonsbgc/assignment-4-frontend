@@ -27,5 +27,6 @@ export const getSlug = (name: string): string => {
 export const getImageUrl = (path: string | null | undefined): string => {
 	if (!path) return "";
 	if (path.startsWith("http://") || path.startsWith("https://")) return path;
+	if (path.startsWith("/uploads/")) return path;
 	return `${config.appBaseUrl}${path}`;
 };
