@@ -55,7 +55,7 @@ export default function Footer() {
 							</li>
 							<li>
 								<Link
-									href="#"
+									href="/faq"
 									className="text-sm hover:text-green-400 transition-colors cursor-pointer"
 								>
 									FAQs
@@ -72,7 +72,7 @@ export default function Footer() {
 						<ul className="space-y-2">
 							<li>
 								<Link
-									href="#"
+									href="/terms"
 									className="text-sm hover:text-green-400 transition-colors cursor-pointer"
 								>
 									Terms & Conditions
@@ -80,7 +80,7 @@ export default function Footer() {
 							</li>
 							<li>
 								<Link
-									href="#"
+									href="/privacy"
 									className="text-sm hover:text-green-400 transition-colors cursor-pointer"
 								>
 									Privacy Policy
@@ -88,7 +88,7 @@ export default function Footer() {
 							</li>
 							<li>
 								<Link
-									href="#"
+									href="/shipping"
 									className="text-sm hover:text-green-400 transition-colors cursor-pointer"
 								>
 									Shipping Policy
@@ -96,7 +96,7 @@ export default function Footer() {
 							</li>
 							<li>
 								<Link
-									href="#"
+									href="/returns"
 									className="text-sm hover:text-green-400 transition-colors cursor-pointer"
 								>
 									Return Policy
