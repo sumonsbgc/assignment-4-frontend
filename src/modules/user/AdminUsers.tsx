@@ -1,18 +1,29 @@
 import { getUsers, prepareParams } from "./services";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+	Card,
+	CardContent,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
 import { UserList } from "./components/UserList";
 import { UserFilters } from "./components/UserFilters";
+import { UserPagination } from "./components/UserPagination";
 
 const AdminUsers = async ({
 	searchParams,
 }: {
 	searchParams: {
+		page?: string;
 		role?: string;
+		status?: string;
 		search?: string;
+		sortBy?: string;
+		sortOrder?: string;
 	};
 }) => {
 	const filterOptions = prepareParams(searchParams);
-	const { users } = await getUsers(filterOptions);
+	const { users, pagination } = await getUsers(filterOptions);
 
 	return (
 		<div className="flex flex-1 flex-col gap-4 p-4">
@@ -28,7 +39,7 @@ const AdminUsers = async ({
 					<div className="flex items-center justify-between">
 						<CardTitle>Users</CardTitle>
 						<div className="text-sm text-gray-600">
-							Total: {users.length} users
+							Total: {pagination?.total ?? 0} users
 						</div>
 					</div>
 					<UserFilters basePath="/admin/users" />
@@ -37,6 +48,12 @@ const AdminUsers = async ({
 				<CardContent>
 					<UserList users={users} />
 				</CardContent>
+
+				<CardFooter className="flex justify-end">
+					{pagination && (
+						<UserPagination pagination={pagination} basePath="/admin/users" />
+					)}
+				</CardFooter>
 			</Card>
 		</div>
 	);

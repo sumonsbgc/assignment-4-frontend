@@ -10,8 +10,12 @@ export const metadata: Metadata = {
 
 type AdminUsersPageProps = {
 	searchParams: Promise<{
+		page?: string;
 		role?: string;
+		status?: string;
 		search?: string;
+		sortBy?: string;
+		sortOrder?: string;
 	}>;
 };
 

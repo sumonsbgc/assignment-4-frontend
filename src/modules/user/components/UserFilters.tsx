@@ -16,8 +16,14 @@ type UserFiltersProps = {
 };
 
 export const UserFilters = ({ basePath }: UserFiltersProps) => {
-	const { searchValue, setSearchValue, currentRole, handleRoleChange } =
-		useUserFilters({ basePath });
+	const {
+		searchValue,
+		setSearchValue,
+		currentRole,
+		currentStatus,
+		handleRoleChange,
+		handleStatusChange,
+	} = useUserFilters({ basePath });
 
 	return (
 		<div className="flex flex-col md:flex-row gap-4 mt-4">
@@ -40,6 +46,18 @@ export const UserFilters = ({ basePath }: UserFiltersProps) => {
 					<SelectItem value="ADMIN">Admin</SelectItem>
 					<SelectItem value="SELLER">Seller</SelectItem>
 					<SelectItem value="CUSTOMER">Customer</SelectItem>
+				</SelectContent>
+			</Select>
+
+			<Select value={currentStatus} onValueChange={handleStatusChange}>
+				<SelectTrigger className="w-full md:w-[180px]">
+					<SelectValue placeholder="All Status" />
+				</SelectTrigger>
+				<SelectContent>
+					<SelectItem value="all">All Status</SelectItem>
+					<SelectItem value="ACTIVE">Active</SelectItem>
+					<SelectItem value="INACTIVE">Inactive</SelectItem>
+					<SelectItem value="SUSPENDED">Suspended</SelectItem>
 				</SelectContent>
 			</Select>
 		</div>

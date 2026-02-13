@@ -9,39 +9,62 @@ export const getUsers = async (
 	try {
 		const cookieStore = await cookies();
 
-		const params: Record<string, string> = {};
+		const params = new URLSearchParams();
 
-		if (options?.role) {
-			params.role = options.role;
+		if (options?.page !== undefined) {
+			params.append("page", options.page.toString());
 		}
 
-		const res = await api.get<UsersAPIResponse>("/users", {
+		if (options?.limit !== undefined) {
+			params.append("limit", options.limit.toString());
+		}
+
+		if (options?.role) {
+			params.append("role", options.role);
+		}
+
+		if (options?.status) {
+			params.append("status", options.status);
+		}
+
+		if (options?.search) {
+			params.append("search", options.search);
+		}
+
+		if (options?.sortBy) {
+			params.append("sortBy", options.sortBy);
+		}
+
+		if (options?.sortOrder) {
+			params.append("sortOrder", options.sortOrder);
+		}
+
+		const queryString = params.toString();
+		const url = queryString ? `/users?${queryString}` : "/users";
+
+		const res = await api.get<UsersAPIResponse>(url, {
 			headers: {
 				Cookie: cookieStore.toString(),
 			},
-			params,
 			next: {
 				tags: [CacheTags.Users],
+				revalidate: 60 * 60 * 24,
 			},
 		});
 
-		if (!res.success || res.error || !res.data?.data) {
+		if (!res?.data?.data) {
 			return { users: [] };
 		}
 
-		let users = res.data.data;
+		const response: GetUsersResponse = {
+			users: res.data.data,
+		};
 
-		// Client-side search filter (backend doesn't support search query)
-		if (options?.search) {
-			const search = options.search.toLowerCase();
-			users = users.filter(
-				(user) =>
-					user.name.toLowerCase().includes(search) ||
-					user.email.toLowerCase().includes(search),
-			);
+		if (res.data.pagination) {
+			response.pagination = res.data.pagination;
 		}
 
-		return { users };
+		return response;
 	} catch (error) {
 		console.error("Error fetching users:", error);
 		return { users: [] };

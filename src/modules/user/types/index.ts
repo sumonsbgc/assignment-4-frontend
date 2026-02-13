@@ -36,8 +36,22 @@ export interface UpdateUserBody {
 
 // ─── Filters ────────────────────────────────────────────
 export interface UserFilters {
+	page?: number;
+	limit?: number;
 	role?: string;
+	status?: string;
 	search?: string;
+	sortBy?: "name" | "email" | "createdAt";
+	sortOrder?: "asc" | "desc";
+}
+
+// ─── Pagination ─────────────────────────────────────────
+export interface PaginationData {
+	page: number;
+	limit: number;
+	total: number;
+	totalPages: number;
+	hasMore: boolean;
 }
 
 // ─── API Responses ──────────────────────────────────────
@@ -45,6 +59,7 @@ export interface UsersAPIResponse {
 	success: boolean;
 	message: string;
 	data: User[];
+	pagination: PaginationData;
 }
 
 export interface SingleUserAPIResponse {
@@ -56,6 +71,7 @@ export interface SingleUserAPIResponse {
 // ─── Service Return Types ───────────────────────────────
 export interface GetUsersResponse {
 	users: User[];
+	pagination?: PaginationData;
 }
 
 export interface GetUserResponse {

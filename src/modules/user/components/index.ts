@@ -1,6 +1,7 @@
 export { UserList } from "./UserList";
 export { UserAction } from "./UserAction";
 export { UserFilters } from "./UserFilters";
+export { UserPagination } from "./UserPagination";
 export { UserDetail } from "./UserDetail";
 export { UserStatusActions } from "./UserStatusActions";
 export { ProfileEditForm } from "./ProfileEditForm";
