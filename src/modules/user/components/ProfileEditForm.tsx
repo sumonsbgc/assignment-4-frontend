@@ -29,6 +29,7 @@ export const ProfileEditForm = ({
 	onSuccess,
 }: ProfileEditFormProps) => {
 	const { form, message, isError } = useUpdateProfile({ user, onSuccess });
+	console.log("Profile Edit Form", user);
 
 	return (
 		<Card>

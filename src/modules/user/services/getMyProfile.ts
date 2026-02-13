@@ -1,16 +1,26 @@
-import { getSession } from "@/lib/getSession";
-import { getUserById } from "./getUserById";
-import type { GetUserResponse } from "../types";
+import { cookies } from "next/headers";
+import { api } from "@/api/Api";
+import { CacheTags } from "@/modules/shared/const";
+import type { SingleUserAPIResponse, GetUserResponse } from "../types";
 
 export const getMyProfile = async (): Promise<GetUserResponse> => {
 	try {
-		const { user: sessionUser, isAuthenticated } = await getSession();
+		const cookieStore = await cookies();
 
-		if (!isAuthenticated || !sessionUser?.id) {
+		const res = await api.get<SingleUserAPIResponse>("/users/me", {
+			headers: {
+				Cookie: cookieStore.toString(),
+			},
+			next: {
+				tags: [CacheTags.User],
+			},
+		});
+
+		if (!res.success || res.error || !res.data?.data) {
 			return { user: null };
 		}
 
-		return await getUserById(sessionUser.id);
+		return { user: res.data.data };
 	} catch (error) {
 		console.error("Error fetching profile:", error);
 		return { user: null };

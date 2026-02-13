@@ -1,6 +1,6 @@
 "use server";
 
-import { updateUser } from "../services/updateUser";
+import { updateMyProfile } from "../services/updateMyProfile";
 import type { UpdateUserBody } from "../types";
 
 export type UpdateProfileData = Pick<
@@ -12,7 +12,7 @@ export const updateProfileAction = async (
 	userId: string,
 	data: UpdateProfileData,
 ) => {
-	const result = await updateUser(userId, data);
+	const result = await updateMyProfile(data);
 	return {
 		success: result.status,
 		message: result.message,

@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { User } from "../types";
 import dayjs from "dayjs";
-import { getImageUrl } from "@/lib/utils";
+import { getImageUrl, getInitials } from "@/lib/utils";
 
 type ProfileSidebarProps = {
 	user: User;
@@ -25,14 +25,9 @@ const getRoleBadge = (role: string) => {
 };
 
 export const ProfileSidebar = ({ user }: ProfileSidebarProps) => {
-	const initials = user.name
-		? user.name
-				.split(" ")
-				.map((n) => n[0])
-				.join("")
-				.toUpperCase()
-				.slice(0, 2)
-		: "?";
+	const initials = getInitials(user?.name);
+
+	console.log("Profile Sidebar", user);
 
 	return (
 		<Card>

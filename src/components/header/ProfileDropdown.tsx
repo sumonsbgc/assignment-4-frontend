@@ -21,6 +21,8 @@ const ProfileDropdown = ({ user }: { user: IUser }) => {
 	const initials = getInitials(user?.name);
 	const profileImage = getImageUrl(user?.image);
 
+	console.log("Header Profile", user);
+
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
