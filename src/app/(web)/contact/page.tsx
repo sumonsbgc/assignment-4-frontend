@@ -1,15 +1,8 @@
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
+import Link from "next/link";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { ContactForm } from "@/modules/contact";
 
 export default function ContactPage() {
 	return (
@@ -30,55 +23,8 @@ export default function ContactPage() {
 			<section className="py-16">
 				<div className="container mx-auto px-4">
 					<div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-						{/* Contact Form */}
-						<Card>
-							<CardHeader>
-								<CardTitle>Send us a Message</CardTitle>
-								<CardDescription>
-									Fill out the form below and we&apos;ll get back to you as soon as
-									possible.
-								</CardDescription>
-							</CardHeader>
-							<CardContent>
-								<form className="space-y-4">
-									<div className="space-y-2">
-										<Label htmlFor="name">Name</Label>
-										<Input id="name" placeholder="Your name" />
-									</div>
-									<div className="space-y-2">
-										<Label htmlFor="email">Email</Label>
-										<Input
-											id="email"
-											type="email"
-											placeholder="your@email.com"
-										/>
-									</div>
-									<div className="space-y-2">
-										<Label htmlFor="phone">Phone</Label>
-										<Input
-											id="phone"
-											type="tel"
-											placeholder="+1 (555) 000-0000"
-										/>
-									</div>
-									<div className="space-y-2">
-										<Label htmlFor="subject">Subject</Label>
-										<Input id="subject" placeholder="How can we help?" />
-									</div>
-									<div className="space-y-2">
-										<Label htmlFor="message">Message</Label>
-										<Textarea
-											id="message"
-											placeholder="Your message..."
-											rows={5}
-										/>
-									</div>
-									<Button type="submit" className="w-full">
-										Send Message
-									</Button>
-								</form>
-							</CardContent>
-						</Card>
+						{/* Dynamic Contact Form */}
+						<ContactForm />
 
 						{/* Contact Information */}
 						<div className="space-y-6">
@@ -101,8 +47,8 @@ export default function ContactPage() {
 											</div>
 											<div>
 												<h3 className="font-semibold mb-1">Phone</h3>
-												<p className="text-gray-600">+1 (555) 123-4567</p>
-												<p className="text-gray-600">+1 (555) 987-6543</p>
+												<p className="text-gray-600">+880 1234-567890</p>
+												<p className="text-gray-600">+880 1987-654321</p>
 											</div>
 										</div>
 
@@ -114,8 +60,8 @@ export default function ContactPage() {
 											</div>
 											<div>
 												<h3 className="font-semibold mb-1">Email</h3>
-												<p className="text-gray-600">support@medishop.com</p>
-												<p className="text-gray-600">info@medishop.com</p>
+												<p className="text-gray-600">support@medistore.com</p>
+												<p className="text-gray-600">info@medistore.com</p>
 											</div>
 										</div>
 
@@ -128,11 +74,11 @@ export default function ContactPage() {
 											<div>
 												<h3 className="font-semibold mb-1">Address</h3>
 												<p className="text-gray-600">
-													123 Healthcare Avenue,
+													123 Pharmacy Street,
 													<br />
 													Medical District,
 													<br />
-													New York, NY 10001
+													Dhaka 1205, Bangladesh
 												</p>
 											</div>
 										</div>
@@ -146,13 +92,10 @@ export default function ContactPage() {
 											<div>
 												<h3 className="font-semibold mb-1">Business Hours</h3>
 												<p className="text-gray-600">
-													Monday - Friday: 9:00 AM - 8:00 PM
+													Saturday – Thursday: 9:00 AM – 8:00 PM
 												</p>
 												<p className="text-gray-600">
-													Saturday: 10:00 AM - 6:00 PM
-												</p>
-												<p className="text-gray-600">
-													Sunday: 10:00 AM - 4:00 PM
+													Friday: 10:00 AM – 6:00 PM
 												</p>
 											</div>
 										</div>
@@ -175,9 +118,11 @@ export default function ContactPage() {
 							Have questions? Check out our FAQ section for quick answers to
 							common queries.
 						</p>
-						<Button variant="outline" size="lg">
-							View FAQs
-						</Button>
+						<Link href="/faq">
+							<Button variant="outline" size="lg">
+								View FAQs
+							</Button>
+						</Link>
 					</div>
 				</div>
 			</section>
