@@ -9,6 +9,9 @@ export const modifiedFilters = (
 		limit: 6,
 		...(searchParams?.search && { search: searchParams.search }),
 		...(searchParams?.categoryId && { categoryId: searchParams.categoryId }),
+		...(searchParams?.manufacturer && {
+			manufacturer: searchParams.manufacturer,
+		}),
 		...(searchParams?.minPrice && {
 			minPrice: parseFloat(searchParams.minPrice),
 		}),

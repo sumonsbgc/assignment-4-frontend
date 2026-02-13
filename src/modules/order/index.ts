@@ -11,6 +11,7 @@ export * from "./validation/validation";
 export * from "./utils/statusColors";
 
 // Components
+export * from "./components/CancelOrderButton";
 export * from "./components/OrderCard";
 export * from "./components/OrderEmpty";
 export * from "./components/OrderHeader";

@@ -1,5 +1,6 @@
 import React from "react";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 import AppSidebar from "@/components/sidebar/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
@@ -16,7 +17,7 @@ const SellerLayout = async ({ children }: { children: React.ReactNode }) => {
 	const { isAuthenticated, user } = await getSession();
 
 	if (!isAuthenticated || user?.role !== Role.SELLER) {
-		throw new Error("Unauthorized");
+		redirect("/login");
 	}
 
 	return (

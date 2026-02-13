@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import {
 	getOrderById,
+	CancelOrderButton,
 	OrderHeader,
 	OrderItemsList,
 	OrderShippingInfo,
@@ -34,10 +35,11 @@ export default async function OrderDetailPage({ params }: Props) {
 
 	return (
 		<div className="container mx-auto px-4 py-8">
-			<div className="mb-6">
+			<div className="mb-6 flex items-center justify-between">
 				<Button variant="ghost" asChild>
 					<Link href="/orders">← Back to Orders</Link>
 				</Button>
+				<CancelOrderButton orderId={order.id} status={order.status} />
 			</div>
 
 			<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

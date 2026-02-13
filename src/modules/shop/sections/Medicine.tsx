@@ -86,10 +86,10 @@ const Medicine = ({ medicine }: { medicine: Medicine }) => {
 							{medicine.discountPrice ? (
 								<>
 									<span className="text-4xl font-bold text-green-600">
-										${medicine.discountPrice.toFixed(2)}
+										৳{medicine.discountPrice.toFixed(2)}
 									</span>
 									<span className="text-2xl text-gray-400 line-through">
-										${medicine.price.toFixed(2)}
+										৳{medicine.price.toFixed(2)}
 									</span>
 									<Badge className="bg-red-500">
 										{medicine.discountPercentage}% OFF
@@ -97,7 +97,7 @@ const Medicine = ({ medicine }: { medicine: Medicine }) => {
 								</>
 							) : (
 								<span className="text-4xl font-bold text-green-600">
-									${medicine.price.toFixed(2)}
+									৳{medicine.price.toFixed(2)}
 								</span>
 							)}
 						</div>

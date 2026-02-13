@@ -18,8 +18,19 @@ import {
 	CheckCircle2,
 	Star,
 } from "lucide-react";
+import { getCategories } from "@/modules/category/services/getCategories";
+import { getMedicines } from "@/modules/medicine/services/getMedicines";
+import Image from "next/image";
 
 export default async function Home() {
+	const [categoriesRes, featuredRes] = await Promise.all([
+		getCategories({ limit: 6, isActive: true }),
+		getMedicines({ limit: 6, isFeatured: true }),
+	]);
+
+	const categories = categoriesRes.data ?? [];
+	const featuredMedicines = featuredRes.data ?? [];
+
 	return (
 		<div className="flex flex-col min-h-screen">
 			<section className="relative bg-linear-to-r from-green-600 to-teal-700 text-white py-20 md:py-32">
@@ -145,26 +156,120 @@ export default async function Home() {
 						</p>
 					</div>
 					<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-						{[
-							{ name: "Pain Relief", icon: "💊" },
-							{ name: "Vitamins", icon: "🌟" },
-							{ name: "First Aid", icon: "🏥" },
-							{ name: "Personal Care", icon: "🧴" },
-							{ name: "Baby Care", icon: "👶" },
-							{ name: "Supplements", icon: "💪" },
-						].map((category) => (
-							<Link key={category.name} href="/shop" className="cursor-pointer">
-								<Card className="hover:shadow-lg transition-shadow cursor-pointer text-center">
-									<CardContent className="pt-6 pb-6">
-										<div className="text-4xl mb-2">{category.icon}</div>
-										<p className="font-semibold">{category.name}</p>
-									</CardContent>
-								</Card>
-							</Link>
-						))}
+						{categories.length > 0 ? (
+							categories.map((category) => (
+								<Link
+									key={category.id}
+									href={`/shop?categoryId=${category.id}`}
+									className="cursor-pointer"
+								>
+									<Card className="hover:shadow-lg transition-shadow cursor-pointer text-center h-full">
+										<CardContent className="pt-6 pb-6">
+											{category.image ? (
+												<div className="relative w-12 h-12 mx-auto mb-2 rounded-full overflow-hidden">
+													<Image
+														src={category.image}
+														alt={category.name}
+														fill
+														className="object-cover"
+													/>
+												</div>
+											) : (
+												<div className="text-4xl mb-2">💊</div>
+											)}
+											<p className="font-semibold text-sm">{category.name}</p>
+										</CardContent>
+									</Card>
+								</Link>
+							))
+						) : (
+							<p className="col-span-full text-center text-gray-500">
+								No categories available
+							</p>
+						)}
 					</div>
 				</div>
 			</section>
+
+			{/* Featured Medicines Section */}
+			{featuredMedicines.length > 0 && (
+				<section className="py-16 bg-gray-50">
+					<div className="container mx-auto px-4">
+						<div className="text-center mb-12">
+							<h2 className="text-3xl md:text-4xl font-bold mb-4">
+								Featured Medicines
+							</h2>
+							<p className="text-gray-600 text-lg">
+								Discover our most popular and recommended products
+							</p>
+						</div>
+						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+							{featuredMedicines.map((medicine) => (
+								<Link
+									key={medicine.id}
+									href={`/shop/${medicine.id}`}
+									className="cursor-pointer"
+								>
+									<Card className="hover:shadow-lg transition-shadow cursor-pointer h-full">
+										<CardContent className="p-0">
+											<div className="relative h-48 bg-gray-100">
+												{medicine.imageUrl ? (
+													<Image
+														src={medicine.imageUrl}
+														alt={medicine.name}
+														fill
+														className="object-cover rounded-t-lg"
+													/>
+												) : (
+													<div className="w-full h-full flex items-center justify-center text-5xl">
+														💊
+													</div>
+												)}
+												{medicine.discountPercentage && (
+													<span className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+														{medicine.discountPercentage}% OFF
+													</span>
+												)}
+											</div>
+											<div className="p-4">
+												<h3 className="font-semibold text-lg mb-1 line-clamp-1">
+													{medicine.name}
+												</h3>
+												<p className="text-sm text-gray-500 mb-2">
+													{medicine.manufacturer}
+												</p>
+												<div className="flex items-center gap-2">
+													{medicine.discountPrice ? (
+														<>
+															<span className="text-lg font-bold text-green-600">
+																৳{medicine.discountPrice}
+															</span>
+															<span className="text-sm text-gray-400 line-through">
+																৳{medicine.price}
+															</span>
+														</>
+													) : (
+														<span className="text-lg font-bold text-green-600">
+															৳{medicine.price}
+														</span>
+													)}
+												</div>
+											</div>
+										</CardContent>
+									</Card>
+								</Link>
+							))}
+						</div>
+						<div className="text-center mt-8">
+							<Link href="/shop">
+								<Button size="lg" variant="outline" className="cursor-pointer">
+									View All Medicines
+								</Button>
+							</Link>
+						</div>
+					</div>
+				</section>
+			)}
 
 			{/* How It Works Section */}
 			<section className="py-16 bg-gray-50">

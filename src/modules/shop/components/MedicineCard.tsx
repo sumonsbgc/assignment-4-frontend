@@ -76,7 +76,7 @@ export default async function MedicineCard({ medicine }: MedicineCardProps) {
 					)}
 					<div className="flex items-center justify-between">
 						<span className="text-2xl font-bold text-green-600">
-							${medicine.price.toFixed(2)}
+							৳{medicine.price.toFixed(2)}
 						</span>
 						<span className="text-sm text-gray-500">
 							Stock: {medicine.stockQuantity}

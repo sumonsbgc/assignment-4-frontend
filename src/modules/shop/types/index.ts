@@ -76,6 +76,7 @@ export interface CategoriesResponse {
 export interface MedicineFilters {
 	search?: string;
 	categoryId?: string;
+	manufacturer?: string;
 	minPrice?: number;
 	maxPrice?: number;
 	sortBy?: string;

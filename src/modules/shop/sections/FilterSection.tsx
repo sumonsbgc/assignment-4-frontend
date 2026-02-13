@@ -79,6 +79,18 @@ const FilterSection = ({
 					</div>
 				</div>
 
+				{/* Manufacturer */}
+				<div className="mb-6">
+					<label className="block text-sm font-medium mb-2">Manufacturer</label>
+					<input
+						type="text"
+						placeholder="Filter by manufacturer..."
+						defaultValue={filters.manufacturer || ""}
+						onChange={(e) => updateFilters({ manufacturer: e.target.value })}
+						className="w-full px-3 py-2 border rounded-md"
+					/>
+				</div>
+
 				{/* Sort By */}
 				<div className="mb-6">
 					<label className="block text-sm font-medium mb-2">Sort By</label>
