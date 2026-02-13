@@ -6,4 +6,5 @@ export enum CacheTags {
 	Order = "Order",
 	Users = "Users",
 	User = "User",
+	Reviews = "Reviews",
 }
