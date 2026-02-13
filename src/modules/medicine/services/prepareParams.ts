@@ -16,7 +16,7 @@ export const prepareParams = (
 		searchParams;
 	const pageNumber = page ? parseInt(page, 10) : 1;
 
-	const filterOptions: MedicineFilters = { page: pageNumber };
+	const filterOptions: MedicineFilters = { page: pageNumber, limit: 10 };
 
 	if (search) {
 		filterOptions.search = search;

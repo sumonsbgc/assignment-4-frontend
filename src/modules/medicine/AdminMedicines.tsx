@@ -25,7 +25,6 @@ const AdminMedicines = async ({
 }) => {
 	const filterOptions = prepareParams(searchParams);
 
-	// Admin sees ALL medicines — no sellerId filter
 	const [{ medicines, pagination }, { categories }] = await Promise.all([
 		getMedicines(filterOptions),
 		getCategories({ isActive: true }),
