@@ -3,8 +3,6 @@ import DashboardBreadcrumb from "@/components/header/DashboardBreadcrumb";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 
-import { Button } from "@/components/ui/button";
-import { Bell } from "lucide-react";
 import ProfileDropdown from "@/components/header/ProfileDropdown";
 import { IUser } from "@/models/Models";
 
@@ -20,11 +18,6 @@ export const DashboardHeader = async ({ user }: { user: IUser }) => {
 			<DashboardBreadcrumb />
 
 			<div className="ml-auto flex items-center gap-2">
-				<Button variant="ghost" size="icon" className="relative">
-					<Bell className="h-5 w-5" />
-					<span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-red-500" />
-				</Button>
-
 				<ProfileDropdown user={user} />
 			</div>
 		</header>

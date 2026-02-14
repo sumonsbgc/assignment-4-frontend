@@ -27,8 +27,6 @@ const getRoleBadge = (role: string) => {
 export const ProfileSidebar = ({ user }: ProfileSidebarProps) => {
 	const initials = getInitials(user?.name);
 
-	console.log("Profile Sidebar", user);
-
 	return (
 		<Card>
 			<CardContent className="pt-6">
