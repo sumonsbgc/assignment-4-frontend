@@ -19,6 +19,8 @@ type ProfileEditFormProps = {
 	user: User;
 	title?: string;
 	description?: string;
+	/** When true, uses admin PUT /users/:id instead of PUT /users/me */
+	adminMode?: boolean;
 	onSuccess?: () => void;
 };
 
@@ -26,10 +28,14 @@ export const ProfileEditForm = ({
 	user,
 	title = "Personal Information",
 	description = "Update your personal details",
+	adminMode = false,
 	onSuccess,
 }: ProfileEditFormProps) => {
-	const { form, message, isError } = useUpdateProfile({ user, onSuccess });
-	console.log("Profile Edit Form", user);
+	const { form, message, isError } = useUpdateProfile({
+		user,
+		adminMode,
+		onSuccess,
+	});
 
 	return (
 		<Card>

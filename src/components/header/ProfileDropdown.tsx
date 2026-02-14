@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import {
@@ -11,6 +10,7 @@ import {
 } from "../ui/dropdown-menu";
 
 import { Button } from "../ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { getRoleMenuItems } from "@/routes/routes";
 import { getImageUrl, getInitials } from "@/lib/utils";
 import { IUser } from "@/models/Models";
@@ -21,25 +21,16 @@ const ProfileDropdown = ({ user }: { user: IUser }) => {
 	const initials = getInitials(user?.name);
 	const profileImage = getImageUrl(user?.image);
 
-	console.log("Header Profile", user);
-
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button
-					variant="ghost"
-					className="relative h-10 w-10 rounded-full bg-primary text-primary-foreground overflow-hidden p-0"
-				>
-					{profileImage ? (
-						<Image
-							src={profileImage}
-							alt={user.name}
-							fill
-							className="object-cover rounded-full"
-						/>
-					) : (
-						initials
-					)}
+				<Button variant="ghost" className="relative h-10 w-10 rounded-full p-0">
+					<Avatar className="h-10 w-10">
+						{profileImage && <AvatarImage src={profileImage} alt={user.name} />}
+						<AvatarFallback className="bg-primary text-primary-foreground">
+							{initials}
+						</AvatarFallback>
+					</Avatar>
 				</Button>
 			</DropdownMenuTrigger>
 

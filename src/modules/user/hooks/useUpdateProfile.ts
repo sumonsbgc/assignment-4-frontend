@@ -5,7 +5,10 @@ import { useRouter } from "next/navigation";
 import { useForm } from "@tanstack/react-form";
 import { aark } from "aark-react-modalify";
 import { z } from "zod/v4";
-import { updateProfileAction } from "../actions/profile.actions";
+import {
+	updateProfileAction,
+	adminUpdateUserProfileAction,
+} from "../actions/profile.actions";
 import type { User } from "../types";
 
 const profileSchema = z.object({
@@ -17,11 +20,14 @@ const profileSchema = z.object({
 
 type UseUpdateProfileProps = {
 	user: User;
+	/** When true, uses admin PUT /users/:id instead of PUT /users/me */
+	adminMode?: boolean;
 	onSuccess?: () => void;
 };
 
 export const useUpdateProfile = ({
 	user,
+	adminMode = false,
 	onSuccess,
 }: UseUpdateProfileProps) => {
 	const router = useRouter();
@@ -41,7 +47,6 @@ export const useUpdateProfile = ({
 		onSubmit: async ({ value }) => {
 			setMessage(null);
 			setIsError(false);
-
 			const profileData = {
 				name: value.name,
 				email: value.email,
@@ -49,7 +54,9 @@ export const useUpdateProfile = ({
 				image: value.image || undefined,
 			};
 
-			const result = await updateProfileAction(user.id, profileData);
+			const result = adminMode
+				? await adminUpdateUserProfileAction(user.id, profileData)
+				: await updateProfileAction(user.id, profileData);
 
 			if (result.success) {
 				setMessage("Profile updated successfully");

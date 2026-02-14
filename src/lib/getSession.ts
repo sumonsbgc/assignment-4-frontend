@@ -18,8 +18,3 @@ export const getSession = async () => {
 		return { session: null, user: null, isAuthenticated: false };
 	}
 };
-
-export const logOut = async () => {
-	await auth.signOut();
-	window.location.href = "/";
-};

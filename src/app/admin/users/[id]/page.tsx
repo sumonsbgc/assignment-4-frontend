@@ -46,6 +46,7 @@ export default async function AdminUserDetailPage({
 						user={user}
 						title="Edit User Profile"
 						description="Update this user's personal information"
+						adminMode
 					/>
 				</div>
 
