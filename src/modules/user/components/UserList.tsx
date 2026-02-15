@@ -10,6 +10,8 @@ import { Badge } from "@/components/ui/badge";
 import type { User } from "../types";
 import { UserAction } from "./UserAction";
 import dayjs from "dayjs";
+import Image from "next/image";
+import { User as UserIcon } from "lucide-react";
 
 const getRoleBadge = (role: string) => {
 	switch (role) {
@@ -54,6 +56,7 @@ export const UserList = ({ users }: { users: User[] }) => {
 		<Table>
 			<TableHeader>
 				<TableRow>
+					<TableHead>Image</TableHead>
 					<TableHead>Name</TableHead>
 					<TableHead>Email</TableHead>
 					<TableHead>Role</TableHead>
@@ -65,13 +68,29 @@ export const UserList = ({ users }: { users: User[] }) => {
 			<TableBody>
 				{users.length === 0 ? (
 					<TableRow>
-						<TableCell colSpan={6} className="text-center py-8 text-gray-500">
+						<TableCell colSpan={7} className="text-center py-8 text-gray-500">
 							No users found.
 						</TableCell>
 					</TableRow>
 				) : (
 					users.map((user) => (
 						<TableRow key={user.id}>
+							<TableCell>
+								<div className="relative w-12 h-12 rounded-full overflow-hidden bg-gray-100">
+									{user.image ? (
+										<Image
+											src={user.image}
+											alt={user.name}
+											fill
+											className="object-cover"
+										/>
+									) : (
+										<div className="w-full h-full flex items-center justify-center">
+											<UserIcon className="w-6 h-6 text-gray-400" />
+										</div>
+									)}
+								</div>
+							</TableCell>
 							<TableCell className="font-medium">
 								<div>
 									<div>{user.name}</div>
