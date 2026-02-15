@@ -27,6 +27,7 @@ import {
 	deleteContactMessage,
 } from "@/modules/contact/services/getContacts";
 import { useRouter } from "next/navigation";
+import { ConfirmModal } from "@/modules/shared/modals";
 
 const statusColors: Record<string, string> = {
 	UNREAD: "bg-red-100 text-red-700",
@@ -42,46 +43,44 @@ function MessageDetailModal({
 	onClose: () => void;
 }) {
 	return (
-		<div className="fixed inset-0 z-99999 flex items-center justify-center bg-black/30 p-4">
-			<div className="bg-white rounded-lg shadow-xl max-w-lg w-full max-h-[80vh] overflow-y-auto">
-				<div className="p-6 space-y-4">
-					<div className="flex items-start justify-between">
-						<h3 className="text-lg font-semibold">{contact.subject}</h3>
-						<Badge className={statusColors[contact.status]}>
-							{contact.status}
-						</Badge>
-					</div>
-					<div className="space-y-2 text-sm text-gray-600">
+		<div className="p-6 w-full max-w-lg mx-auto text-center">
+			<div className="p-6 space-y-4">
+				<div className="flex items-start justify-between">
+					<h3 className="text-2xl font-semibold">{contact.subject}</h3>
+					<Badge className={statusColors[contact.status]}>
+						{contact.status}
+					</Badge>
+				</div>
+				<div className="space-y-2 text-sm text-gray-600">
+					<p>
+						<span className="font-medium text-gray-900">From:</span>{" "}
+						{contact.name}
+					</p>
+					<p>
+						<span className="font-medium text-gray-900">Email:</span>{" "}
+						{contact.email}
+					</p>
+					{contact.phone && (
 						<p>
-							<span className="font-medium text-gray-900">From:</span>{" "}
-							{contact.name}
+							<span className="font-medium text-gray-900">Phone:</span>{" "}
+							{contact.phone}
 						</p>
-						<p>
-							<span className="font-medium text-gray-900">Email:</span>{" "}
-							{contact.email}
-						</p>
-						{contact.phone && (
-							<p>
-								<span className="font-medium text-gray-900">Phone:</span>{" "}
-								{contact.phone}
-							</p>
-						)}
-						<p>
-							<span className="font-medium text-gray-900">Date:</span>{" "}
-							{dayjs(contact.createdAt).format("DD MMM YYYY, hh:mm A")}
-						</p>
-					</div>
-					<div className="border-t pt-4">
-						<p className="text-sm font-medium text-gray-900 mb-2">Message:</p>
-						<p className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed">
-							{contact.message}
-						</p>
-					</div>
-					<div className="flex justify-end pt-2">
-						<Button variant="outline" onClick={onClose}>
-							Close
-						</Button>
-					</div>
+					)}
+					<p>
+						<span className="font-medium text-gray-900">Date:</span>{" "}
+						{dayjs(contact.createdAt).format("DD MMM YYYY, hh:mm A")}
+					</p>
+				</div>
+				<div className="border-t pt-4">
+					<p className="text-sm font-medium text-gray-900 mb-2">Message:</p>
+					<p className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed">
+						{contact.message}
+					</p>
+				</div>
+				<div className="flex justify-end pt-2">
+					<Button variant="outline" onClick={onClose}>
+						Close
+					</Button>
 				</div>
 			</div>
 		</div>
@@ -130,43 +129,41 @@ export default function AdminContactsList({
 
 	const handleDelete = (contact: Contact) => {
 		aark.fire(
-			<div className="fixed inset-0 z-99999 flex items-center justify-center bg-black/30 p-4">
-				<div className="bg-white rounded-lg shadow-xl max-w-sm w-full p-6 space-y-4">
-					<h3 className="text-lg font-semibold">Delete Message</h3>
-					<p className="text-sm text-gray-600">
+			<ConfirmModal
+				title="Delete Message"
+				description={
+					<>
 						Are you sure you want to delete the message from{" "}
 						<strong>{contact.name}</strong>? This action cannot be undone.
-					</p>
-					<div className="flex justify-end gap-2">
-						<Button variant="outline" onClick={() => aark.close()}>
-							Cancel
-						</Button>
-						<Button
-							variant="destructive"
-							onClick={async () => {
-								const res = await deleteContactMessage(contact.id);
-								aark.close();
-								if (res.success) {
-									aark.notification({
-										title: "Deleted",
-										text: res.message,
-										type: "success",
-									});
-									router.refresh();
-								} else {
-									aark.notification({
-										title: "Error",
-										text: res.message,
-										type: "error",
-									});
-								}
-							}}
-						>
-							Delete
-						</Button>
-					</div>
-				</div>
-			</div>,
+					</>
+				}
+				confirmText="Delete"
+				variant="danger"
+				onConfirm={async () => {
+					const res = await deleteContactMessage(contact.id);
+					aark.close();
+					if (res.success) {
+						aark.notification({
+							title: "Deleted",
+							text: res.message,
+							type: "success",
+						});
+						router.refresh();
+					} else {
+						aark.notification({
+							title: "Error",
+							text: res.message,
+							type: "error",
+						});
+					}
+				}}
+				onCancel={() => aark.close()}
+			/>,
+			{
+				showCloseIcon: false,
+				preventEscClose: false,
+				preventOverlayClose: true,
+			},
 		);
 	};
 

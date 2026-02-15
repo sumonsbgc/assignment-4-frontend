@@ -4,15 +4,23 @@ import { useTransition } from "react";
 import { aark } from "aark-react-modalify";
 import { deleteCategoryAction } from "../actions/category.actions";
 import { ICategory } from "@/models/Models";
-import { Button } from "@/components/ui/button";
+import { ConfirmModal } from "@/modules/shared/modals";
 
 export const useDeleteCategory = () => {
 	const [isPending, startTransition] = useTransition();
 
 	const handleDelete = (category: ICategory) => {
 		aark.fire(
-			<DeleteConfirmModal
-				categoryName={category.name}
+			<ConfirmModal
+				title="Delete Category"
+				description={
+					<>
+						Are you sure you want to delete <strong>{category.name}</strong>?
+						This action cannot be undone.
+					</>
+				}
+				confirmText="Delete"
+				variant="danger"
 				onConfirm={() => {
 					startTransition(async () => {
 						const result = await deleteCategoryAction(category.id);
@@ -47,48 +55,4 @@ export const useDeleteCategory = () => {
 		handleDelete,
 		isPending,
 	};
-};
-
-type DeleteConfirmModalProps = {
-	categoryName: string;
-	onConfirm: () => void;
-	onCancel: () => void;
-};
-
-const DeleteConfirmModal = ({
-	categoryName,
-	onConfirm,
-	onCancel,
-}: DeleteConfirmModalProps) => {
-	return (
-		<div className="bg-white rounded-lg p-6 max-w-md relative z-100 shadow-lg">
-			<h2 className="text-xl font-semibold mb-2">Delete Category</h2>
-			<p className="text-gray-600 mb-6">
-				Are you sure you want to delete <strong>{categoryName}</strong>? This
-				action cannot be undone.
-			</p>
-			<div className="flex gap-3 justify-end relative z-101">
-				<Button
-					variant="outline"
-					onClick={(e) => {
-						e.stopPropagation();
-						onCancel();
-					}}
-					className="relative z-102 pointer-events-auto"
-				>
-					Cancel
-				</Button>
-				<Button
-					variant="destructive"
-					onClick={(e) => {
-						e.stopPropagation();
-						onConfirm();
-					}}
-					className="relative z-102 pointer-events-auto"
-				>
-					Delete
-				</Button>
-			</div>
-		</div>
-	);
 };

@@ -25,7 +25,7 @@ export default Components;
 
 export const PaymentFailModal = () => {
 	return (
-		<div className="bg-red">
+		<div className="p-6 w-full max-w-lg mx-auto text-center">
 			<h1>Payment Failed</h1>
 			<p>Your payment could not be processed. Please try again.</p>
 			<button onClick={() => aark.close()}>Close</button>

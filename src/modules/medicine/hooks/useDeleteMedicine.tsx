@@ -4,15 +4,23 @@ import { useTransition } from "react";
 import { aark } from "aark-react-modalify";
 import { deleteMedicineAction } from "../actions/medicine.actions";
 import type { Medicine } from "../types";
-import { Button } from "@/components/ui/button";
+import { ConfirmModal } from "@/modules/shared/modals";
 
 export const useDeleteMedicine = () => {
 	const [isPending, startTransition] = useTransition();
 
 	const handleDelete = (medicine: Medicine) => {
 		aark.fire(
-			<DeleteConfirmModal
-				medicineName={medicine.name}
+			<ConfirmModal
+				title="Delete Medicine"
+				description={
+					<>
+						Are you sure you want to delete <strong>{medicine.name}</strong>?
+						This action cannot be undone.
+					</>
+				}
+				confirmText="Delete"
+				variant="danger"
 				onConfirm={() => {
 					startTransition(async () => {
 						const result = await deleteMedicineAction(medicine.id);
@@ -47,48 +55,4 @@ export const useDeleteMedicine = () => {
 		handleDelete,
 		isPending,
 	};
-};
-
-type DeleteConfirmModalProps = {
-	medicineName: string;
-	onConfirm: () => void;
-	onCancel: () => void;
-};
-
-const DeleteConfirmModal = ({
-	medicineName,
-	onConfirm,
-	onCancel,
-}: DeleteConfirmModalProps) => {
-	return (
-		<div className="bg-white rounded-lg p-6 max-w-md relative z-100 shadow-lg">
-			<h2 className="text-xl font-semibold mb-2">Delete Medicine</h2>
-			<p className="text-gray-600 mb-6">
-				Are you sure you want to delete <strong>{medicineName}</strong>? This
-				action cannot be undone.
-			</p>
-			<div className="flex gap-3 justify-end relative z-101">
-				<Button
-					variant="outline"
-					onClick={(e) => {
-						e.stopPropagation();
-						onCancel();
-					}}
-					className="relative z-102 pointer-events-auto"
-				>
-					Cancel
-				</Button>
-				<Button
-					variant="destructive"
-					onClick={(e) => {
-						e.stopPropagation();
-						onConfirm();
-					}}
-					className="relative z-102 pointer-events-auto"
-				>
-					Delete
-				</Button>
-			</div>
-		</div>
-	);
 };
