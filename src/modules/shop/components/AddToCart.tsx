@@ -16,13 +16,13 @@ type LoginRequiredModalProps = {
 
 const LoginRequiredModal = ({ onLogin, onCancel }: LoginRequiredModalProps) => {
 	return (
-		<div className="bg-white rounded-lg p-6 max-w-md relative z-100 shadow-lg">
-			<h2 className="text-xl font-semibold mb-2">Login Required</h2>
-			<p className="text-gray-600 mb-6">
+		<div className="p-6 w-full max-w-lg mx-auto text-center">
+			<h2 className="text-2xl font-semibold mb-2">Login Required</h2>
+			<p className="text-gray-600 mb-6 text-base">
 				You need to be logged in to add items to your cart. Please login to
 				continue shopping.
 			</p>
-			<div className="flex gap-3 justify-end relative z-101">
+			<div className="flex gap-3 justify-center relative z-101">
 				<Button
 					variant="outline"
 					onClick={(e) => {

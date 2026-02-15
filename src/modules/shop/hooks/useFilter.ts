@@ -12,6 +12,14 @@ export const useFilter = () => {
 		(newFilters: Partial<MedicineFilters>) => {
 			const params = new URLSearchParams(searchParams.toString());
 
+			const isFilterChange = Object.keys(newFilters).some(
+				(key) => key !== "page",
+			);
+
+			if (isFilterChange) {
+				params.delete("page");
+			}
+
 			Object.entries(newFilters).forEach(([key, value]) => {
 				if (value !== undefined && value !== null && value !== "") {
 					params.set(key, String(value));
