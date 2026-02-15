@@ -35,7 +35,7 @@ export const useDeleteMedicine = () => {
 						} else {
 							aark.notification({
 								title: "Delete Failed",
-								text: result.message,
+								text: "Unable to delete medicine. Please try again.",
 								type: "error",
 							});
 						}

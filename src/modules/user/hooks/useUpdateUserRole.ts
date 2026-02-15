@@ -27,7 +27,7 @@ export const useUpdateUserRole = () => {
 			} else {
 				aark.notification({
 					title: "Update Failed",
-					text: result.message,
+					text: "Unable to update user role. Please try again.",
 					type: "error",
 				});
 			}

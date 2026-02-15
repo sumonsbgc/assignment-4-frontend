@@ -58,16 +58,18 @@ export function UpdatePaymentDialog({
 
 		if (result.success) {
 			aark.notification({
-				title: "Success",
-				text: result.message,
+				title: "Payment Updated",
+				text: "Payment status has been updated successfully",
 				type: "success",
 			});
 			onOpenChange(false);
 			router.refresh();
 		} else {
 			aark.notification({
-				title: "Error",
-				text: result.message,
+				title: "Update Failed",
+				text: result.message?.includes("HTTP") 
+					? "Unable to update payment status. Please try again."
+					: result.message || "Unable to update payment status. Please try again.",
 				type: "error",
 			});
 		}

@@ -43,7 +43,9 @@ export const useCheckout = () => {
 			} else {
 				aark.notification({
 					title: "Order Failed",
-					text: response.message,
+					text: response.message?.includes("HTTP") 
+						? "Unable to place your order. Please try again."
+						: response.message || "Unable to place your order. Please try again.",
 					type: "error",
 				});
 				setIsError(true);

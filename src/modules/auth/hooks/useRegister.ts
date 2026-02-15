@@ -46,7 +46,9 @@ export const useRegister = () => {
 			} else {
 				aark.notification({
 					title: "Registration Failed",
-					text: response.message,
+					text: response.message?.includes("HTTP") 
+						? "Unable to create account. Please try again."
+						: response.message || "Unable to create account. Please try again.",
 					type: "error",
 				});
 				setIsError(true);

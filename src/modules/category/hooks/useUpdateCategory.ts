@@ -75,7 +75,7 @@ export const useUpdateCategory = ({
 			} else {
 				aark.notification({
 					title: "Update Failed",
-					text: response.message,
+					text: "Unable to update category. Please check your input and try again.",
 					type: "error",
 				});
 				setIsError(true);

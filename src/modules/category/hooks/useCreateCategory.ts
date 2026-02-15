@@ -69,7 +69,7 @@ export const useCreateCategory = ({
 			} else {
 				aark.notification({
 					title: "Creation Failed",
-					text: response.message,
+					text: "Unable to create category. Please check your input and try again.",
 					type: "error",
 				});
 				setIsError(true);

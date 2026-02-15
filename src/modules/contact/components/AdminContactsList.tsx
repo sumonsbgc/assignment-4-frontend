@@ -113,14 +113,14 @@ export default function AdminContactsList({
 		if (res.success) {
 			aark.notification({
 				title: "Status Updated",
-				text: res.message,
+				text: "Message status has been updated",
 				type: "success",
 			});
 			router.refresh();
 		} else {
 			aark.notification({
-				title: "Error",
-				text: res.message,
+				title: "Update Failed",
+				text: "Unable to update message status. Please try again.",
 				type: "error",
 			});
 		}
@@ -144,15 +144,15 @@ export default function AdminContactsList({
 					aark.close();
 					if (res.success) {
 						aark.notification({
-							title: "Deleted",
-							text: res.message,
+							title: "Message Deleted",
+							text: "The message has been removed successfully",
 							type: "success",
 						});
 						router.refresh();
 					} else {
 						aark.notification({
-							title: "Error",
-							text: res.message,
+							title: "Delete Failed",
+							text: "Unable to delete message. Please try again.",
 							type: "error",
 						});
 					}

@@ -44,7 +44,9 @@ export function CancelOrderButton({ orderId, status }: CancelOrderButtonProps) {
 						} else {
 							aark.notification({
 								title: "Cancel Failed",
-								text: result.message,
+								text: result.message?.includes("HTTP") 
+									? "Unable to cancel order. Please try again."
+									: result.message || "Unable to cancel order. Please try again.",
 								type: "error",
 							});
 						}

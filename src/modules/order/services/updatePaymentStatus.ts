@@ -23,20 +23,21 @@ export async function updatePaymentStatus(
 	try {
 		const cookieStore = await cookies();
 
-		const res = await api.put<{ data: IOrder }>(
-			`/orders/${orderId}/payment`,
-			data,
-			{
-				headers: {
-					Cookie: cookieStore.toString(),
-				},
+		const res = await api.put<{
+			data?: IOrder;
+			success: boolean;
+			message?: string;
+		}>(`/orders/${orderId}/payment`, data, {
+			headers: {
+				Cookie: cookieStore.toString(),
 			},
-		);
+		});
 
 		if (!res.success || res.error) {
 			return {
 				success: false,
-				message: res.error || "Failed to update payment status",
+				message:
+					res.data?.message || res.error || "Failed to update payment status",
 				order: null,
 			};
 		}

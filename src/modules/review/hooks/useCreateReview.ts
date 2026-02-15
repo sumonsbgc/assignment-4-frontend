@@ -30,15 +30,15 @@ export const useCreateReview = (medicineId: string) => {
 			if (result.success) {
 				aark.notification({
 					title: "Review Submitted",
-					text: result.message,
+					text: "Thank you! Your review has been submitted successfully",
 					type: "success",
 				});
 				form.reset();
 				router.refresh();
 			} else {
 				aark.notification({
-					title: "Error",
-					text: result.message,
+					title: "Submission Failed",
+					text: "Unable to submit your review. Please try again.",
 					type: "error",
 				});
 				setIsError(true);

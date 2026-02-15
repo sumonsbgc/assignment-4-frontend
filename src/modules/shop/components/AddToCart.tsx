@@ -49,14 +49,14 @@ const AddToCart = ({ medicine }: { medicine: Medicine }) => {
 			const result = await addToCartAction(medicine.id, 1);
 			if (result.success) {
 				aark.notification({
-					title: "Success",
-					text: result.message || "Added to cart successfully!",
+					title: "Added to Cart",
+					text: "Item has been added to your cart",
 					type: "success",
 				});
 			} else {
 				aark.notification({
-					title: "Error",
-					text: result.message || "Failed to add to cart",
+					title: "Add to Cart Failed",
+					text: "Unable to add item to cart. Please try again.",
 					type: "error",
 				});
 			}

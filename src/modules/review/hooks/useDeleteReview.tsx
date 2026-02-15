@@ -23,16 +23,16 @@ export const useDeleteReview = () => {
 
 						if (result.success) {
 							aark.notification({
-								title: "Deleted",
-								text: result.message,
+								title: "Review Deleted",
+								text: "Your review has been removed successfully",
 								type: "success",
 							});
 							aark.close();
 							router.refresh();
 						} else {
 							aark.notification({
-								title: "Error",
-								text: result.message,
+								title: "Delete Failed",
+								text: "Unable to delete review. Please try again.",
 								type: "error",
 							});
 						}

@@ -31,7 +31,7 @@ export const useUpdateUserStatus = () => {
 			} else {
 				aark.notification({
 					title: "Update Failed",
-					text: result.message,
+					text: "Unable to update user status. Please try again.",
 					type: "error",
 				});
 			}

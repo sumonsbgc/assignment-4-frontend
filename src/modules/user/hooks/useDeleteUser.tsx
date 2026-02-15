@@ -35,7 +35,7 @@ export const useDeleteUser = () => {
 						} else {
 							aark.notification({
 								title: "Delete Failed",
-								text: result.message,
+								text: "Unable to delete user. Please try again.",
 								type: "error",
 							});
 						}

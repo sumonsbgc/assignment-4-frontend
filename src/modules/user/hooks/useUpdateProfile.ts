@@ -72,7 +72,7 @@ export const useUpdateProfile = ({
 				setMessage(result.message);
 				aark.notification({
 					title: "Update Failed",
-					text: result.message,
+					text: "Unable to update profile. Please check your input and try again.",
 					type: "error",
 				});
 			}

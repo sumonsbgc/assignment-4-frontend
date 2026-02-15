@@ -24,20 +24,22 @@ export async function updateOrderStatus(
 	try {
 		const cookieStore = await cookies();
 
-		const res = await api.put<{ data: IOrder }>(
-			`/orders/${orderId}/status`,
-			data,
-			{
-				headers: {
-					Cookie: cookieStore.toString(),
-				},
+		const res = await api.put<{
+			data?: IOrder;
+			success: boolean;
+			message?: string;
+		}>(`/orders/${orderId}/status`, data, {
+			headers: {
+				Cookie: cookieStore.toString(),
 			},
-		);
+		});
 
 		if (!res.success || res.error) {
+			const errorMessage =
+				res.data?.message || res.error || "Failed to update order status";
 			return {
 				success: false,
-				message: res.error || "Failed to update order status",
+				message: errorMessage,
 				order: null,
 			};
 		}

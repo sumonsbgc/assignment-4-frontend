@@ -35,7 +35,7 @@ export const useDeleteCategory = () => {
 						} else {
 							aark.notification({
 								title: "Delete Failed",
-								text: result.message,
+								text: "Unable to delete category. Please try again.",
 								type: "error",
 							});
 						}

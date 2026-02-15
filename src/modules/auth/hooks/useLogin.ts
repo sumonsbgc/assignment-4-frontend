@@ -43,7 +43,9 @@ export const useLogin = () => {
 			} else {
 				aark.notification({
 					title: "Login Failed",
-					text: response.message,
+					text: response.message?.includes("HTTP") 
+						? "Invalid email or password. Please try again."
+						: response.message || "Invalid email or password. Please try again.",
 					type: "error",
 				});
 				setIsError(true);

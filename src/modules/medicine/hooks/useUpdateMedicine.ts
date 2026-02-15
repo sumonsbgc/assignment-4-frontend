@@ -108,7 +108,7 @@ export const useUpdateMedicine = ({
 			} else {
 				aark.notification({
 					title: "Update Failed",
-					text: response.message,
+					text: "Unable to update medicine. Please check your input and try again.",
 					type: "error",
 				});
 				setIsError(true);

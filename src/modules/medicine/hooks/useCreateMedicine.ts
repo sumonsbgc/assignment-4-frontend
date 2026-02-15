@@ -105,7 +105,7 @@ export const useCreateMedicine = ({
 			} else {
 				aark.notification({
 					title: "Creation Failed",
-					text: response.message,
+					text: "Unable to create medicine. Please check your input and try again.",
 					type: "error",
 				});
 				setIsError(true);
