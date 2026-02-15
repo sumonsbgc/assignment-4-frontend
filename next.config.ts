@@ -19,6 +19,11 @@ const nextConfig: NextConfig = {
 				port: "5000",
 				pathname: "/uploads/**",
 			},
+			{
+				protocol: "https",
+				hostname: "b6a4-medishop.s3.*.amazonaws.com",
+				pathname: "/**",
+			},
 		],
 	},
 	async rewrites() {
