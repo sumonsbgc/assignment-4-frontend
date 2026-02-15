@@ -44,9 +44,20 @@ export const uploadImage = async (
 		);
 
 		if (!res.success || res.error || !res.data?.data) {
+			// Extract error message from response body if available
+			const errorMessage =
+				(res.data as Record<string, unknown>)?.message ||
+				res.error ||
+				"Failed to upload image";
+			const messageStr =
+				typeof errorMessage === "string"
+					? errorMessage
+					: "Failed to upload image";
 			return {
 				success: false,
-				message: res.error || "Failed to upload image",
+				message: messageStr.includes("HTTP")
+					? "Unable to upload image. Please try again."
+					: messageStr,
 				data: null,
 			};
 		}
@@ -59,8 +70,7 @@ export const uploadImage = async (
 	} catch (error) {
 		return {
 			success: false,
-			message:
-				error instanceof Error ? error.message : "Failed to upload image",
+			message: "Unable to upload image. Please try again.",
 			data: null,
 		};
 	}
