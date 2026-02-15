@@ -7,9 +7,9 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Pill } from "lucide-react";
 import type { Medicine } from "../types";
 import { Action } from "./Action";
+import Image from "next/image";
 
 const getStatusBadge = (medicine: Medicine) => {
 	if (!medicine.isActive) {
@@ -37,6 +37,7 @@ export const MedicineList = ({ medicines }: { medicines: Medicine[] }) => {
 		<Table>
 			<TableHeader>
 				<TableRow>
+					<TableHead>Image</TableHead>
 					<TableHead>Name</TableHead>
 					<TableHead>Category</TableHead>
 					<TableHead>Price</TableHead>
@@ -48,24 +49,37 @@ export const MedicineList = ({ medicines }: { medicines: Medicine[] }) => {
 			<TableBody>
 				{medicines.length === 0 ? (
 					<TableRow>
-						<TableCell colSpan={6} className="text-center py-8 text-gray-500">
+						<TableCell colSpan={7} className="text-center py-8 text-gray-500">
 							No medicines found. Add your first medicine to get started.
 						</TableCell>
 					</TableRow>
 				) : (
 					medicines.map((medicine) => (
 						<TableRow key={medicine.id}>
+							<TableCell>
+								<div className="relative w-12 h-12 rounded overflow-hidden bg-gray-100">
+									{medicine.imageUrl ? (
+										<Image
+											src={medicine.imageUrl}
+											alt={medicine.name}
+											fill
+											className="object-cover"
+										/>
+									) : (
+										<div className="w-full h-full flex items-center justify-center text-xl">
+											💊
+										</div>
+									)}
+								</div>
+							</TableCell>
 							<TableCell className="font-medium">
-								<div className="flex items-center gap-2">
-									<Pill className="w-4 h-4 text-gray-500" />
-									<div>
-										<div>{medicine.name}</div>
-										{medicine.genericName && (
-											<div className="text-xs text-muted-foreground">
-												{medicine.genericName}
-											</div>
-										)}
-									</div>
+								<div>
+									<div>{medicine.name}</div>
+									{medicine.genericName && (
+										<div className="text-xs text-muted-foreground">
+											{medicine.genericName}
+										</div>
+									)}
 								</div>
 							</TableCell>
 							<TableCell className="text-gray-600">
