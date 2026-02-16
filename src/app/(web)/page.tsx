@@ -17,10 +17,43 @@ import {
 	Package,
 	CheckCircle2,
 	Star,
+	Pill,
+	Thermometer,
+	Apple,
+	Sparkles,
+	Cross,
+	HeartPulse,
 } from "lucide-react";
 import { getCategories } from "@/modules/category/services/getCategories";
 import { getMedicines } from "@/modules/medicine/services/getMedicines";
 import Image from "next/image";
+
+// Static category icons mapping
+const categoryIcons: Record<string, React.ReactNode> = {
+	"pain relief": <Pill className="w-8 h-8 text-red-500" />,
+	"cold & flu": <Thermometer className="w-8 h-8 text-blue-500" />,
+	"digestive health": <Apple className="w-8 h-8 text-green-500" />,
+	"vitamins & supplements": <Sparkles className="w-8 h-8 text-yellow-500" />,
+	"first aid": <Cross className="w-8 h-8 text-red-600" />,
+	"skin care": <HeartPulse className="w-8 h-8 text-pink-500" />,
+};
+
+const getCategoryIcon = (categoryName: string, index: number) => {
+	const normalizedName = categoryName.toLowerCase();
+	if (categoryIcons[normalizedName]) {
+		return categoryIcons[normalizedName];
+	}
+	// Fallback icons based on index
+	const fallbackIcons = [
+		<Pill key="pill" className="w-8 h-8 text-emerald-500" />,
+		<Heart key="heart" className="w-8 h-8 text-rose-500" />,
+		<Shield key="shield" className="w-8 h-8 text-indigo-500" />,
+		<Package key="package" className="w-8 h-8 text-orange-500" />,
+		<Star key="star" className="w-8 h-8 text-amber-500" />,
+		<HeartPulse key="heartpulse" className="w-8 h-8 text-teal-500" />,
+	];
+	return fallbackIcons[index % fallbackIcons.length];
+};
 
 export default async function Home() {
 	const [{ categories }, { medicines: featuredMedicines }] = await Promise.all([
@@ -154,7 +187,7 @@ export default async function Home() {
 					</div>
 					<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
 						{categories?.length > 0 ? (
-							categories.map((category) => (
+							categories.map((category, index) => (
 								<Link
 									key={category.id}
 									href={`/shop?categoryId=${category.id}`}
@@ -162,18 +195,9 @@ export default async function Home() {
 								>
 									<Card className="hover:shadow-lg transition-shadow cursor-pointer text-center h-full">
 										<CardContent className="pt-6 pb-6">
-											{category.image ? (
-												<div className="relative w-12 h-12 mx-auto mb-2 rounded-full overflow-hidden">
-													<Image
-														src={category.image}
-														alt={category.name}
-														fill
-														className="object-cover"
-													/>
-												</div>
-											) : (
-												<div className="text-4xl mb-2">💊</div>
-											)}
+											<div className="flex items-center justify-center mb-3">
+												{getCategoryIcon(category.name, index)}
+											</div>
 											<p className="font-semibold text-sm">{category.name}</p>
 										</CardContent>
 									</Card>
