@@ -22,12 +22,12 @@ export const useDeleteReview = () => {
 						const result = await deleteReviewAction(reviewId);
 
 						if (result.success) {
+							aark.close();
 							aark.notification({
 								title: "Review Deleted",
 								text: "Your review has been removed successfully",
 								type: "success",
 							});
-							aark.close();
 							router.refresh();
 						} else {
 							aark.notification({

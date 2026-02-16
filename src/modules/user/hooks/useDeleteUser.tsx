@@ -26,12 +26,12 @@ export const useDeleteUser = () => {
 						const result = await deleteUserAction(user.id);
 
 						if (result.success) {
+							aark.close();
 							aark.notification({
 								title: "User Deleted",
 								text: result.message,
 								type: "success",
 							});
-							aark.close();
 						} else {
 							aark.notification({
 								title: "Delete Failed",

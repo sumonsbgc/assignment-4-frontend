@@ -26,12 +26,12 @@ export const useDeleteMedicine = () => {
 						const result = await deleteMedicineAction(medicine.id);
 
 						if (result.success) {
+							aark.close();
 							aark.notification({
 								title: "Medicine Deleted",
 								text: result.message,
 								type: "success",
 							});
-							aark.close();
 						} else {
 							aark.notification({
 								title: "Delete Failed",
