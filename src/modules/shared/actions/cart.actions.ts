@@ -2,7 +2,7 @@
 
 import { addToCart } from "../services/carts/addToCart";
 import { removeFromCart } from "../services/carts/removeFromCart";
-import { updateTag } from "next/cache";
+import { updateTag, refresh } from "next/cache";
 import { CacheTags } from "../const";
 import { updateCart } from "../services/carts/updateCart";
 
@@ -15,6 +15,7 @@ export async function addToCartAction(medicineId: string, quantity: number) {
 
 		if (result.status) {
 			updateTag(CacheTags.Carts);
+			refresh();
 			return {
 				success: true,
 				message: result.message,
@@ -39,6 +40,7 @@ export async function removeFromCartAction(cartItemId: string) {
 
 		if (result.status) {
 			updateTag(CacheTags.Carts);
+			refresh();
 			return {
 				success: true,
 				message: result.message,
@@ -67,6 +69,7 @@ export async function updateCartItemAction(
 
 		if (result.status) {
 			updateTag(CacheTags.Carts);
+			refresh();
 			return {
 				success: true,
 				message: result.message,
