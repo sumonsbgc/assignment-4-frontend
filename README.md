@@ -10,6 +10,7 @@ Next.js web application for the MediStore medicine e-commerce platform.
 - **UI Components:** shadcn/ui + Radix UI
 - **Auth:** Better Auth (client)
 - **Forms:** TanStack Form + Zod
+- **Modals:** aark-react-modalify
 
 ## Getting Started
 
@@ -27,6 +28,7 @@ Create a `.env.local` file:
 NEXT_PUBLIC_BACKEND_URL=http://localhost:5000
 NEXT_PUBLIC_API_URL=http://localhost:5000/api
 NEXT_PUBLIC_FRONTEND_URL=http://localhost:3000
+BACKEND_URL=http://localhost:5000
 ```
 
 ### 3. Start the dev server
@@ -39,16 +41,17 @@ App runs at `http://localhost:3000`
 
 ## Scripts
 
-| Command | Description |
-|---|---|
-| `pnpm dev` | Start dev server |
+| Command      | Description          |
+| ------------ | -------------------- |
+| `pnpm dev`   | Start dev server     |
 | `pnpm build` | Build for production |
 | `pnpm start` | Run production build |
-| `pnpm lint` | Run ESLint |
+| `pnpm lint`  | Run ESLint           |
 
 ## Pages
 
 ### Public
+
 - `/` — Home (hero, categories, featured medicines)
 - `/shop` — Browse medicines with search & filters
 - `/shop/:id` — Medicine details & reviews
@@ -57,18 +60,21 @@ App runs at `http://localhost:3000`
 - `/about`, `/contact`, `/faq` — Info pages
 
 ### Customer Dashboard
+
 - `/dashboard` — Order stats & spending overview
 - `/orders` — Order history & tracking
 - `/profile` — Edit profile
 - `/reviews` — My reviews
 
 ### Seller Dashboard
+
 - `/seller/dashboard` — Sales stats & low-stock alerts
 - `/seller/medicines` — Manage inventory (add/edit/delete)
 - `/seller/orders` — Fulfill orders & update status
 - `/seller/profile` — Edit profile
 
 ### Admin Dashboard
+
 - `/admin/dashboard` — Platform statistics
 - `/admin/users` — Manage users (ban/unban)
 - `/admin/categories` — Manage categories
@@ -76,3 +82,13 @@ App runs at `http://localhost:3000`
 - `/admin/orders` — Manage all orders
 - `/admin/contacts` — View contact submissions
 - `/admin/profile` — Edit profile
+
+## Deployment (Vercel)
+
+1. Connect your GitHub repository
+2. Add environment variables:
+   - `NEXT_PUBLIC_BACKEND_URL` (your backend URL)
+   - `NEXT_PUBLIC_API_URL` (backend URL + /api)
+   - `NEXT_PUBLIC_FRONTEND_URL` (your Vercel URL)
+   - `BACKEND_URL` (your backend URL)
+3. Deploy
