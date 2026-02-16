@@ -100,8 +100,8 @@ const FilterSection = ({
 						className="w-full px-3 py-2 border rounded-md"
 					>
 						<option value="">Default</option>
-						<option value="price">Price: Low to High</option>
-						<option value="name">Name: A to Z</option>
+						<option value="price">Price: High to Low</option>
+						<option value="name">Name: Z to A</option>
 					</select>
 				</div>
 
