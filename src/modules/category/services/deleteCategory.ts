@@ -13,6 +13,7 @@ export const deleteCategory = async (
 		const cookieStore = await cookies();
 		const res = await api.delete<{ success: boolean; message?: string }>(
 			`/categories/${categoryId}`,
+			undefined,
 			{
 				headers: {
 					Cookie: cookieStore.toString(),
