@@ -39,13 +39,15 @@ export const useLogin = () => {
 				});
 
 				const dashboard = getDashboardByRole(response.user.role);
-				router.push(dashboard);
+				router.replace(dashboard);
+				router.refresh();
 			} else {
 				aark.notification({
 					title: "Login Failed",
-					text: response.message?.includes("HTTP") 
+					text: response.message?.includes("HTTP")
 						? "Invalid email or password. Please try again."
-						: response.message || "Invalid email or password. Please try again.",
+						: response.message ||
+							"Invalid email or password. Please try again.",
 					type: "error",
 				});
 				setIsError(true);
