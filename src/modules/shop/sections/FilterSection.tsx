@@ -23,7 +23,7 @@ const FilterSection = ({
 					<input
 						type="text"
 						placeholder="Search medicines..."
-						defaultValue={filters.search || ""}
+						value={filters.search || ""}
 						onChange={(e) => updateFilters({ search: e.target.value })}
 						className="w-full px-3 py-2 border rounded-md"
 					/>
@@ -33,7 +33,7 @@ const FilterSection = ({
 				<div className="mb-6">
 					<label className="block text-sm font-medium mb-2">Category</label>
 					<select
-						defaultValue={filters.categoryId || ""}
+						value={filters.categoryId || ""}
 						onChange={(e) => updateFilters({ categoryId: e.target.value })}
 						className="w-full px-3 py-2 border rounded-md"
 					>
@@ -53,7 +53,7 @@ const FilterSection = ({
 						<input
 							type="number"
 							placeholder="Min"
-							defaultValue={filters.minPrice || ""}
+							value={filters.minPrice || ""}
 							onChange={(e) =>
 								updateFilters({
 									minPrice: e.target.value
@@ -66,7 +66,7 @@ const FilterSection = ({
 						<input
 							type="number"
 							placeholder="Max"
-							defaultValue={filters.maxPrice || ""}
+							value={filters.maxPrice || ""}
 							onChange={(e) =>
 								updateFilters({
 									maxPrice: e.target.value
@@ -85,7 +85,7 @@ const FilterSection = ({
 					<input
 						type="text"
 						placeholder="Filter by manufacturer..."
-						defaultValue={filters.manufacturer || ""}
+						value={filters.manufacturer || ""}
 						onChange={(e) => updateFilters({ manufacturer: e.target.value })}
 						className="w-full px-3 py-2 border rounded-md"
 					/>
@@ -95,7 +95,7 @@ const FilterSection = ({
 				<div className="mb-6">
 					<label className="block text-sm font-medium mb-2">Sort By</label>
 					<select
-						defaultValue={filters.sortBy || ""}
+						value={filters.sortBy || ""}
 						onChange={(e) => updateFilters({ sortBy: e.target.value })}
 						className="w-full px-3 py-2 border rounded-md"
 					>
